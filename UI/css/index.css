@@ -235,6 +235,11 @@ margin-bottom:5%;
 overflow: hidden;
 }
 
+.car-item p{
+text-align:left;
+margin-left:15px;
+}
+
 .car-item div>p:nth-child(4){
     color:#D81416;
 }
