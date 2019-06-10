@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-
+import { users, cars } from '../datastore';
 
 dotenv.config();
 
@@ -33,6 +33,23 @@ export const verifyToken = (req, res, next) => {
     req.authData = authData;
     return next();
   });
+}
+
+  export const isOwnerDummy = (req, res, next) => {
+    const { email } = req.authData.payload;
+    const { id } = req.params;
+    const value = Number(id);
+    const foundUser = users.find(user => user.email === email);
+    const foundCar = cars.find(car => car.id === value);
+    if (foundUser.id !== foundCar.owner) {
+      return res.status(401).json({
+        status: 401,
+        error: 'You can not edit this ad'
+      });
+    }
+    return next();
+  
+
 };
 
 
