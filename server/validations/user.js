@@ -47,4 +47,48 @@ import { users }  from '../datastore';
          req.body.address = address.trim();
          return next();
      }
+
+  /**
+   * login User to the application
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @param {function} next - Calls the next function/route handler
+   * @returns {object} JSON representing the failure message.
+   */
+  static loginCheck(req, res, next) {
+    let { email, password } = req.body;
+
+    const rules = {
+      email: 'required|email',
+      password: 'required'
+    };
+    const validation = new validator(req.body, rules);
+
+    if (validation.fails()) {
+      return res.status(400).json({
+        status: 400,
+        error: validation.errors.errors
+      });
     }
+
+    email = email.toLowerCase().trim();
+    const userFound = users.find(user => user.email === email);
+    if (!userFound) {
+      return res.status(401).json({
+        status: 401,
+        error: 'Authentication failed',
+      });
+    }
+
+    password = password.trim();
+    if (userFound && password !== userFound.password) {
+      return res.status(401).json({
+        status: 401,
+        error: 'Incorrect login details',
+      });
+    }
+    req.body.userFound = userFound;
+    req.body.password = password;
+    return next();
+  }
+ };

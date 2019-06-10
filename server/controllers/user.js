@@ -33,4 +33,22 @@ export class UserController {
       data: { token }
     });
   }
-}
+
+ /**
+     * Login user to the application
+     * @static
+     * @param {object} req - The request object
+     * @param {object} res - The response object
+     * @return {object} JSON object representing success
+     * @memeberof UserController
+     */
+    static login(req, res) {
+        const { userFound } = req.body;
+        const token = createToken(userFound);
+        return res.status(200).json({
+          status: 200,
+          data: { token }
+        });
+      }
+    }
+
