@@ -233,10 +233,29 @@ describe('Test for Cars routes', () => {
                 expect(res.body.error).to.be.equal('Enter a price or retain the old price');
             });
         });
-
+        describe('Test for getAdRoutes', () => {
+            it('Should return 200 status code and serve a single Ad', async () => {
+                const res = await chai.request(app)
+                .get('/api/v1/car/1')
+                res.should.have.status(200);
+                res.body.should.be.an('object');
+                expect(res.body.status).to.equal(200);
+                expect(res.body.data).to.be.a('object');
+            });
+    
+            it('Should return 404 status code and not serve a single Ad', async () => {
+                const res = await chai.request(app)
+                .get('/api/v1/car/qui')
+                res.should.have.status(404);
+                res.body.should.be.an('object');
+                expect(res.body.status).to.equal(404);
+                expect(res.body.error).to.equal('Car not found');
+            });
+    
 
     });
-})
+});
+});
 
 
 
