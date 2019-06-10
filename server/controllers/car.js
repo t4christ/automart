@@ -117,4 +117,25 @@ export class CarController {
   }
   
   
+  static filterSearch(req, res, next) {
+    if (req.query.status) {
+      let { status, minprice, maxprice } = req.query;
+      status = status.trim().toLowerCase();
+      if (status && !minprice && !maxprice) {
+        const statusResult = cars.filter(car => car.status === status)
+        if (statusResult.length === 0) {
+          return res.status(404).json({
+            status: 404,
+            error: 'Sorry, this does not exist'
+          });
+        }
+        return res.status(200).json({
+          status: 200,
+          data: statusResult
+        });
+      }
+
+    next();
+  }
+};
 };
