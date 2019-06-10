@@ -126,3 +126,28 @@ export const inValidRegisterFixture = [
         password: 'bradpass'
     }
 ];
+
+// Login
+export const inValidLoginFixture = [
+    // no email/empty email 0
+    {
+      password: 'passwordless'
+    },
+  
+    // email not found in the db 1
+    {
+      email: 'automart@gmail.com',
+      password: 'automartpass'
+    },
+  
+    // no password/empty password 2
+    {
+      email: 'reymon@gmail.com'
+    },
+    // password not in db 3
+    {
+      email: 'reymon@gmail.com',
+      password: 'none'
+    }
+  ];
+  
