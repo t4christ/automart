@@ -3,7 +3,7 @@ import chaiHttp from 'chai-http';
 import app from '../../index';
 
 import { validCarFixtures, invalidCarFixtures } from './fixtures/car';
-import { users, cars } from '../datastore';
+import { cars } from '../datastore';
 
 const { should, expect } = chai;
 should();
@@ -192,8 +192,31 @@ describe('Test for Cars routes', () => {
              expect(res.body.status).to.equal(400);
              expect(res.body.errors).to.be.a('object');
         });
+
+        describe('Test for PATCH endpoint', () => {
+            it('Should allow owner update car ad status and return status code of 200', async () => {
+                const res = await chai.request(app)
+                .patch('/api/v1/car/2/status')
+                .set('authorization', userClaim)
+                res.should.have.status(200);
+                res.body.should.be.an('object');
+                expect(res.body.status).to.equal(200);
+                expect(res.body.data).to.be.an('object');
+            });
+            it('Should not allow owner update car ad status and return status code of 422', async () => {
+                const res = await chai.request(app)
+                .patch('/api/v1/car/2/status')
+                .set('authorization', userClaim)
+                res.should.have.status(422);
+                res.body.should.be.an('object');
+                expect(res.body.status).to.equal(422);
+                expect(res.body.error).to.be.equal('This ad has already been marked as sold');
+            });
+
+
+
     });
-    
-    });
+})
+})
 
 
