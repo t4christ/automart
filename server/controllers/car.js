@@ -42,6 +42,22 @@ export class CarController {
     });
   }
 
+   /**
+   * Find car Ad
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @return {object} JSON object representing success
+   * @memeberof CarController
+   */
+
+  static getSingleCarAd(req, res) {
+    const { foundCar } = req.body;
+    return res.status(200).json({
+      status: 200,
+      data: foundCar
+    });
+  }
  
 
   /**
