@@ -212,11 +212,31 @@ describe('Test for Cars routes', () => {
                 expect(res.body.status).to.equal(422);
                 expect(res.body.error).to.be.equal('This ad has already been marked as sold');
             });
-
+            it('Should allow owner update car ad price and return status code of 200', async () => {
+                const res = await chai.request(app)
+                .patch('/api/v1/car/2/price')
+                .set('authorization', userClaim)
+                .send({price: '3000000'})
+                res.should.have.status(200);
+                res.body.should.be.an('object');
+                expect(res.body.status).to.equal(200);
+                expect(res.body.data).to.be.an('object');
+            });
+            it('Should not allow owner update car ad price and return status code of 400', async () => {
+                const res = await chai.request(app)
+                .patch('/api/v1/car/2/price')
+                .set('authorization', userClaim)
+                .send({price: ''})
+                res.should.have.status(400);
+                res.body.should.be.an('object');
+                expect(res.body.status).to.equal(400);
+                expect(res.body.error).to.be.equal('Enter a price or retain the old price');
+            });
+        });
 
 
     });
 })
-})
+
 
 
