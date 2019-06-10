@@ -1,4 +1,4 @@
-import { cars, orders } from '../datastore';
+import { users, cars, orders } from '../datastore';
 
 /**
  * Class representing CarController
@@ -49,5 +49,60 @@ export class OrderController {
        });
    }
 
-   
+   /**
+   * Edit order price
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @return {object} JSON object representing success
+   * @memeberof OrderController
+   */
+
+    static editOrderPrice(req, res) {
+        const { newPriceOffered } = req.body;
+
+        if (!newPriceOffered.trim() === '' || !/^\d+$/.test(newPriceOffered)) {
+            return res.status(400).json({
+                status: 400,
+                error: 'new price offered should be numbers only'
+            });
+        }
+
+        let oldPriceOffered, id, carId, status;
+        const { orderId } = req.params;
+        const { email } = req.authData.payload;
+        const foundUser = users.find(user => user.email === email);
+        const userId = foundUser.id
+        const foundOrder = orders.find(order => order.id === Number(orderId) && order.buyerId === userId);
+
+        if (!foundOrder) {
+            return res.status(404).json({
+                status: 404,
+                error: 'Order is not available'
+            });
+        }
+        if (foundOrder && foundOrder.status === 'pending') {
+            oldPriceOffered = foundOrder.amount;
+
+            id = foundOrder.id;
+            carId = foundOrder.carId;
+            status = foundOrder.status;
+            const updatedOrder = {
+                id,
+                carId,
+                status,
+                oldPriceOffered,
+                newPriceOffered
+            };
+            return res.status(200).json({
+                status: 200,
+                data:  updatedOrder 
+            });
+        }
+        return res.status(422).json({
+            status: 422,
+            error: 'Sorry, this order is no longer pending'
+        });
+
+    }
 }
