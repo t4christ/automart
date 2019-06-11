@@ -48,10 +48,36 @@ export const verifyToken = (req, res, next) => {
       });
     }
     return next();
+
+
+    
   
 
 };
 
+export const isAdmin = (req, res, next) => {
+  const { isAdmin } = req.authData.payload;
+  if (isAdmin === true) {
+    return next();
+  }
+  
+  return res.status(401).json({
+    status: 401,
+    error: 'You do not have permissions to access this route'
+  });
+};
+
+export const isAdminDummy = (req, res, next) => {
+  const { email } = req.authData.payload;
+  const findUser = users.find(user => user.email === email);
+  if(findUser.isAdmin) {
+    return next();
+  }
+  return res.status(401).json({
+    status: 401,
+    error: 'Permission denied'
+  });
+};
 
 
 
