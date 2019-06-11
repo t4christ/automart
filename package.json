@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -rf build && mkdir build",
-    "build-server": "babel -d ./build ./server -s",
-    "build": "npm run clean  && npm run build-server",
-    "start": "node ./build/index.js",
     "dev-start": "nodemon --exec babel-node index",
+    "start": "npm run build && node ./build/index",
+    "build": "npm run clean  && npm run build-server",
+    "build-server": "babel -d ./build ./server -s",
+    "clean": "rm -rf build && mkdir build",
+    "heroku-postbuild":"npm run build",
     "test": "nyc --reporter=html --reporter=text mocha ./server/tests/*.js --require @babel/register --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
