@@ -58,6 +58,7 @@ export class CarController {
       data: foundCar
     });
   }
+
  
 
   /**
@@ -116,6 +117,7 @@ export class CarController {
     });
   }
   
+
   /**
   * Fetch All posted Ads (Admin)
   * @static
@@ -124,6 +126,34 @@ export class CarController {
   * @return {object} JSON object representing success
   * @memeberof CarController
   */
+
+ /**
+      * Delete Single posted Ad (Admin)
+      * @static
+      * @param {object} req - The request object
+      * @param {object} res - The response object
+      * @return {object} JSON object representing success
+      * @memeberof CarController
+      */
+     static deleteSingleCarAd(req, res) {
+      const { foundCar } = req.body;
+      cars.splice(foundCar, 1);
+      return res.status(200).json({
+        status: 200,
+        data: 'Car Ad successfully deleted'
+      });
+    }
+
+
+    /**
+   * Filter by unsold and price range of cars
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @return {object} JSON object representing success
+   * @memeberof CarController
+   */
+
   
   static filterSearch(req, res, next) {
     if (req.query.status) {
