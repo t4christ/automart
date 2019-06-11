@@ -127,6 +127,15 @@ export class CarController {
   * @memeberof CarController
   */
 
+ static fetchAllCarAds(req, res) {
+  return res.status(200).json({
+    status: 200,
+    data: cars
+  });
+}
+
+
+
  /**
       * Delete Single posted Ad (Admin)
       * @static
