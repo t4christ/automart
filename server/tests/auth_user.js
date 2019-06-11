@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../..';
+import app from '..';
 
 import { validRegisterFixture, inValidRegisterFixture, inValidLoginFixture } from './fixtures/user';
 import { users } from '../datastore';
