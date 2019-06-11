@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/index.js --exec babel-node",
-    "build": "babel server -d dist",
-    "serve": "node dist/index.js",
+    "start": "node ./dist/app/app.js",
+    "build": "babel server/*.js -d dist",
     "dev-start": "nodemon --exec babel-node index",
     "test": "nyc --reporter=html --reporter=text mocha ./server/tests/*.js --require @babel/register --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
