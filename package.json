@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./dist/app/app.js",
+    "start": "node ./dist/server/index.js",
     "build": "babel server/*.js -d dist",
     "dev-start": "nodemon --exec babel-node index",
     "test": "nyc --reporter=html --reporter=text mocha ./server/tests/*.js --require @babel/register --exit",
