@@ -134,8 +134,28 @@ export class CarController {
           data: statusResult
         });
       }
+      if (status && minprice && maxprice) {
+        minprice = Number(minprice.trim());
+        maxprice = Number(maxprice.trim());
+        const elasticResult = cars.filter(car => car.status === status && Number(car.price) >= minprice && Number(car.price) <= maxprice);
+        if (elasticResult.length === 0) {
+          return res.status(404).json({
+            status: 404,
+            error: 'There is no result for your search now'
+          });
+        }
+        return res.status(200).json({
+          status: 200,
+          data: elasticResult
+        });
+      }
 
+     return res.status(404).json({
+       status: 404,
+       error: 'There seems to be an issue with your search'
+     });
+    }
     next();
   }
 };
-};
+
