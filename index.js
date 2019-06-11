@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
-import { defaultRouter, userRouter, carRouter, orderRouter } from './routes';
+import { defaultRouter, userRouter, carRouter, orderRouter } from './server/routes';
 
 
 dotenv.config();
