@@ -10,17 +10,17 @@ AutoMart
 Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers with 100 percent guarantee.
 
 ## Prerequistes
-1. node
-2. npm  
+- node
+- npm  
 
 
 ## Installing
-1. install node on your machine
-2. run npm install to install all the required packages.
-3. run 'npm run dev-start' to get the server running.
+- install node on your machine
+- run npm install to install all the required packages.
+- run 'npm run dev-start' to get the server running.
 
 ## Running the test
-Run 'npm run test' to run all the test cases.
+- Run 'npm run test' to run all the test cases.
 
 ## Required Features
 - User can sign up.
