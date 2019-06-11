@@ -3,7 +3,7 @@ import { CarController } from '../controllers';
 import { Car }  from '../validations';
 import { verifyToken, isAdminDummy, isOwnerDummy } from '../middlewares/auth'
 
-const { postCarAd, getSingleCarAd, fetchAllCarAds,editAdStatus, editAdPrice, filterSearch, deleteSingleCarAd } = CarController;
+const { postCarAd, getSingleCarAd, fetchAllCarAds, deleteSingleCarAd, editAdStatus, editAdPrice, filterSearch } = CarController;
 const { postAdchecker, findSpecificCarAd } = Car;
 
 export const carRouter = express.Router();
