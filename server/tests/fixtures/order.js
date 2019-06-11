@@ -1,7 +1,7 @@
 export const validOrderFixture = [
     {
         priceOffered: '1000000',
-        carId: '1'
+        carId: '2'
     }
 ];
 
