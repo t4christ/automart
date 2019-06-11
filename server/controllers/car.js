@@ -117,6 +117,16 @@ export class CarController {
     });
   }
   
+
+  /**
+  * Fetch All posted Ads (Admin)
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @return {object} JSON object representing success
+  * @memeberof CarController
+  */
+
  /**
       * Delete Single posted Ad (Admin)
       * @static
@@ -143,6 +153,7 @@ export class CarController {
    * @return {object} JSON object representing success
    * @memeberof CarController
    */
+
   
   static filterSearch(req, res, next) {
     if (req.query.status) {
