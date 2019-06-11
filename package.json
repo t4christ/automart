@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel server -d dist",
-    "start": "npm run build && nodemon dist/index.js",
-    "serve": "npm run build && node dist/index.js",
+    "prebuild": "rm -rf build && mkdir build",
+    "build:babel": "babel --out-dir build --ignore *.test.js src",
+    "build": "npm run prebuild && npm run build:babel",
+    "start": "npm run build && node ./build/index.js",
     "dev-start": "nodemon --exec babel-node index",
     "test": "nyc --reporter=html --reporter=text mocha ./server/tests/*.js --require @babel/register --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
