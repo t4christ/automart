@@ -44,6 +44,10 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 - Pivotal Tracker
 - Project is currently being managed with Pivotal Tracker, a project management     tool. You can find the stories on the AutoMart Pivotal Tracker Board
 
+## API Documentation
+ Access api documentation through this link [Here](temitayobakare.docs.apiary.io)
+
+
 ## Built With
 - nodejs (server)
 - expressjs (handling routes,requests and views)
