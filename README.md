@@ -33,7 +33,8 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 - User can view all unsold cars within a price range.
 - Admin can delete a posted AD record.
 - Admin can view all posted ads whether sold or unsold.
-- Optional Features
+
+## Optional Features
 - User can reset password.
 - User can view all cars of a specific body type.
 - User can add multiple pictures to a posted ad.
