@@ -258,9 +258,9 @@ static async fetchAllUserAds(req,res) {
    * @memeberof CarController
    */
   static async statusSearch(req, res, next) {
-    console.log('search1', req.query);
+
     if(req.query.status &&  !req.query.state && !req.query.manufacturer && !req.query.bodytype) {
-      console.log('search1a', req.query);
+      
       let { status } = req.query;
       status = status.trim().toLowerCase();
       try {
