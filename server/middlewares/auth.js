@@ -24,7 +24,7 @@ export const verifyToken = (req, res, next) => {
       mesage: 'No token supplied'
     });
   }
-  jwt.verify(token.split(" ")[1], process.env.SECRETKEY, (error, authData) => {
+  jwt.verify(token, process.env.SECRETKEY, (error, authData) => {
     if (error) {
       if (error.message.includes('signature')) {
         return res.status(403).json({
