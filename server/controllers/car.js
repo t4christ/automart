@@ -200,7 +200,7 @@ static async fetchAllUserAds(req,res) {
   }
 
   /**
-  * Edit price of posted Ad
+  * Edit price of posted Advert
   * @static
   * @param {object} req - The request object
   * @param {object} res - The response object
