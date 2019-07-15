@@ -10,7 +10,7 @@ export const createToken = (payload) => {
 };
 
 export const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization || req.body.token;
+  const token = req.headers.token || req.headers.authorization ;
   //console.log('tokennitre', token);
   if (!token) {
     return res.status(403).json({
