@@ -9,7 +9,7 @@ import { verifyToken } from '../middlewares/auth';
 export const flagRouter = express.Router();
 
 
-flagRouter.post('flag', verifyToken, flagAd);
+flagRouter.post('/flag', verifyToken, flagAd);
 
 
 
