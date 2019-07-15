@@ -211,7 +211,7 @@ static async fetchAllUserAds(req,res) {
   static async editAdPrice(req, res) {
     let { price, foundCar } = req.body
     const { id } = req.authData.payload;
-    //console.log("Price",req.body)
+   
     if (!price) {
       return res.status(400).json({
         status: 400,
