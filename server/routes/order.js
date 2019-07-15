@@ -10,9 +10,9 @@ const { findSpecificCarAd } = Car;
 export const orderRouter = express.Router();
 
 
-orderRouter.post('/order', verifyToken, postOrderChecker, postOrder);
-orderRouter.patch('/order/:orderId/price', verifyToken, editOrderPrice);
-orderRouter.get('/order', verifyToken, getAllUserOrders);
+orderRouter.post('order', verifyToken, postOrderChecker, postOrder);
+orderRouter.patch('order/:orderId/price', verifyToken, editOrderPrice);
+orderRouter.get('order', verifyToken, getAllUserOrders);
 
 
 

@@ -14,13 +14,13 @@ const { postAdchecker, findSpecificCarAd } = Car;
 export const carRouter = express.Router();
 
 
-carRouter.post('/car', verifyToken, postAdchecker, postCarAd);
-carRouter.get('/car/ads', verifyToken, fetchAllUserAds);
-carRouter.get('/car/:id', findSpecificCarAd, getSingleCarAd);
-carRouter.get('/car', statusPriceSearch, statusNewStateSearch, statusUsedStateSearch, statusManufacturerSearch, statusSearch, bodyTypeSearch, verifyToken, isAdmin, fetchAllCarAds);
-carRouter.delete('/car/:id', verifyToken, isAdmin, findSpecificCarAd, deleteSingleCarAd);
-carRouter.patch('/car/:id/status', verifyToken, findSpecificCarAd, editAdStatus);
-carRouter.patch('/car/:id/price', verifyToken, findSpecificCarAd, editAdPrice);
+carRouter.post('car', verifyToken, postAdchecker, postCarAd);
+carRouter.get('car/ads', verifyToken, fetchAllUserAds);
+carRouter.get('car/:id', findSpecificCarAd, getSingleCarAd);
+carRouter.get('car', statusPriceSearch, statusNewStateSearch, statusUsedStateSearch, statusManufacturerSearch, statusSearch, bodyTypeSearch, verifyToken, isAdmin, fetchAllCarAds);
+carRouter.delete('car/:id', verifyToken, isAdmin, findSpecificCarAd, deleteSingleCarAd);
+carRouter.patch('car/:id/status', verifyToken, findSpecificCarAd, editAdStatus);
+carRouter.patch('car/:id/price', verifyToken, findSpecificCarAd, editAdPrice);
 
 
 
