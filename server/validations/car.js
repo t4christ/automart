@@ -20,7 +20,7 @@ import { fetchSingleCarAdQuery } from '../config/sql';
 //       */
 
 //       static postAdCheck(req, res, next) {
-//           let { state, price, manufacturer, model, bodytype } = req.body;
+//           let { state, price, manufacturer, model, body_type } = req.body;
 
 //           const rules = {
 //               state: 'required|alpha:in:new,used',
@@ -28,7 +28,7 @@ import { fetchSingleCarAdQuery } from '../config/sql';
 //               price: 'required|integer|min:1',
 //               manufacturer: 'required|alpha',
 //               model: 'required|alpha',
-//               bodytype: 'required|alpha'
+//               body_type: 'required|alpha'
 //           };
 
 //           const validation = new validator(req.body, rules);
@@ -56,7 +56,7 @@ import { fetchSingleCarAdQuery } from '../config/sql';
 //           req.body.price = price.trim()
 //           req.body.manufacturer = manufacturer.toLowerCase().trim();
 //           req.body.model = model.toLowerCase().trim();
-//           req.body.bodytype = bodytype.toLowerCase().trim();
+//           req.body.body_type = body_type.toLowerCase().trim();
 //           req.authData;
 //           return next();
 //       }
@@ -139,7 +139,7 @@ export class Car {
 
         if (!body_type) {
             const error = {
-                message: 'You will need to specify a bodytype'
+                message: 'You will need to specify a body_type'
             };
             errors.push(error);
         }
@@ -148,7 +148,7 @@ export class Car {
             body_type = body_type.trim();
             if (/[^a-zA-Z]/.test(body_type)) {
                 const error = {
-                    message: 'Bodytype field accepts alphabets only'
+                    message: 'body_type field accepts alphabets only'
                 };
                 errors.push(error);
             }

@@ -6,7 +6,7 @@ export const queryUsersByEmail = 'SELECT * FROM users WHERE email = $1';
 export const updateUserRoleQuery = 'UPDATE users SET isAdmin = $1 WHERE email = $2';
 
 /**Car SQL */
-export const postAdQuery = 'INSERT INTO cars (owner, state, price, manufacturer, model, bodytype, imageurl) VALUES ($1, $2, $3, $4, $5, $6, $7) returning *';
+export const postAdQuery = 'INSERT INTO cars (owner, state, price, manufacturer, model, body_type, img_url) VALUES ($1, $2, $3, $4, $5, $6, $7) returning *';
 export const fetchSingleCarAdQuery = 'SELECT * FROM cars WHERE id = $1';
 export const fetchAllCarAdsQuery = 'SELECT * FROM cars';
 export const deleteSingleAdQuery = 'DELETE FROM cars WHERE id=$1 returning *';

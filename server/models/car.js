@@ -9,7 +9,7 @@ const carsTable = `DROP TABLE IF EXISTS cars CASCADE;
         price CHARACTER VARYING(50) NOT NULL,
         manufacturer CHARACTER VARYING(100) NOT NULL,
         model CHARACTER VARYING(100) NOT NULL,
-        bodytype CHARACTER VARYING(100) NOT NULL,
+        body_type CHARACTER VARYING(100) NOT NULL,
         img_url TEXT NOT NULL,
         registeredOn TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
         FOREIGN KEY (owner) references users (id) ON DELETE CASCADE

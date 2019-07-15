@@ -8,8 +8,8 @@ export const cars = [
         price: '30000000',
         manufacturer: 'Bmw',
         model: 'classic',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/bmw-car-11229/'
+        body_type: 'car',
+        img_url: 'https://www.cloudinary.com/photo/bmw-car-11229/'
     },
 
  
@@ -22,8 +22,8 @@ export const cars = [
         price: '40000000',
         manufacturer: 'Hyundai',
         model: 'crisp',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/hyundai-car-26785/'
+        body_type: 'car',
+        img_url: 'https://www.cloudinary.com/photo/hyundai-car-26785/'
     },
 
     {
@@ -35,8 +35,8 @@ export const cars = [
         price: '15000000',
         manufacturer: 'Bugatti',
         model: 'flip',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/bugatti-car-28155/' 
+        body_type: 'car',
+        img_url: 'https://www.cloudinary.com/photo/bugatti-car-28155/' 
     },
 
     {
@@ -48,8 +48,8 @@ export const cars = [
         price: '11000000',
         manufacturer: 'Padro',
         model: 'escalator',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/padro-car-22445/'
+        body_type: 'car',
+        img_url: 'https://www.cloudinary.com/photo/padro-car-22445/'
     },
 
     {
@@ -61,8 +61,8 @@ export const cars = [
         price: '30000000',
         manufacturer: 'Nissan',
         model: 'occupy',
-        bodytype: 'van',
-        imageurl: 'https://www.cloudinary.com/photo/nissan-car-11905/'
+        body_type: 'van',
+        img_url: 'https://www.cloudinary.com/photo/nissan-car-11905/'
     },
 
     {
@@ -74,8 +74,8 @@ export const cars = [
         price: '45000000',
         manufacturer: 'Kia',
         model: 'pundre',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/kia-car-88990/' 
+        body_type: 'car',
+        img_url: 'https://www.cloudinary.com/photo/kia-car-88990/' 
     },
 
     {
@@ -87,8 +87,8 @@ export const cars = [
         price: '14000000',
         manufacturer: 'Tundra',
         model: 'rugged',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/tundra-car-32355/'
+        body_type: 'car',
+        img_url: 'https://www.cloudinary.com/photo/tundra-car-32355/'
     }
 
 ];

@@ -1,6 +1,6 @@
 // import { cars, users } from '../datastore';
 import db from '../config';
-import { postAdQuery, fetchAllCarAdsQuery, allUserAdsQuery, deleteSingleAdQuery, updateCarAdStatus, updateCarAdPrice, statusQuery, statusPriceQuery, statusManufacturerQuery, bodyTypeQuery, statusStateQuery, queryUsersByEmail } from '../config/sql';
+import { postAdQuery, fetchAllCarAdsQuery, allUserAdsQuery, deleteSingleAdQuery, updateCarAdStatus, updateCarAdPrice, statusQuery, statusPriceQuery, statusManufacturerQuery, body_typeQuery, statusStateQuery, queryUsersByEmail } from '../config/sql';
 //import { imageUpload } from '../middlewares/multer';
 
 
@@ -44,6 +44,7 @@ export class CarController {
    
     
       const { rows } = await db.query(postAdQuery, params);
+      console.log("Rows",rows)
       const newAd = rows[0];
       //console.log('newAD', newAd);
       return res.status(201).json({
@@ -260,7 +261,7 @@ static async fetchAllUserAds(req,res) {
    */
   static async statusSearch(req, res, next) {
 
-    if(req.query.status &&  !req.query.state && !req.query.manufacturer && !req.query.bodytype) {
+    if(req.query.status &&  !req.query.state && !req.query.manufacturer && !req.query.body_type) {
       
       let { status } = req.query;
       status = status.trim().toLowerCase();
@@ -450,13 +451,13 @@ static async fetchAllUserAds(req,res) {
 
   static async bodyTypeSearch(req, res, next) {
     console.log('search5', req.query);
-    if (req.query.bodytype) {
+    if (req.query.body_type) {
       console.log('search5a', req.query);
-      let { bodytype } = req.query;
-      bodytype = bodytype.trim().toLowerCase();
+      let { body_type } = req.query;
+      body_type = body_type.trim().toLowerCase();
       
       try {
-        const { rows, rowCount } = await db.query(bodyTypeQuery, [bodytype]);
+        const { rows, rowCount } = await db.query(body_typeQuery, [body_type]);
         if (rowCount === 0) {
           return res.status(404).json({
             status: 404,
