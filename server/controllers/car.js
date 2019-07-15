@@ -85,6 +85,7 @@ export class CarController {
   * @return {object} JSON object representing success
   * @memeberof CarController
   */
+ 
   static async fetchAllCarAds(req, res) {
     try {
       const { rows } = await db.query(fetchAllCarAdsQuery);
