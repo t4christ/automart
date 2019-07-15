@@ -50,7 +50,7 @@ export class UserController {
   }
 
   /**
-     * Login user to the application
+     * Login user into the application
      * @static
      * @param {object} req - The request object
      * @param {object} res - The response object
