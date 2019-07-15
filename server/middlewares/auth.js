@@ -11,7 +11,7 @@ export const createToken = (payload) => {
 
 export const verifyToken = (req, res, next) => {
   const token = req.headers.authorization || req.body.token;
-
+  //console.log('tokennitre', token);
   if (!token) {
     return res.status(403).json({
       status: 'Fail',
@@ -33,44 +33,24 @@ export const verifyToken = (req, res, next) => {
     req.authData = authData;
     return next();
   });
-}
-
-  export const isOwnerDummy = (req, res, next) => {
-    const { email } = req.authData.payload;
-    const { id } = req.params;
-    const value = Number(id);
-    const foundUser = users.find(user => user.email === email);
-    const foundCar = cars.find(car => car.id === value);
-    if (foundUser.id !== foundCar.owner) {
-      return res.status(401).json({
-        status: 401,
-        error: 'You can not edit this ad'
-      });
-    }
-    return next();
-
-
-    
-  
-
 };
 
 export const isAdmin = (req, res, next) => {
-  const { isAdmin } = req.authData.payload;
-  if (isAdmin === true) {
+  const { is_admin } = req.authData.payload;
+  if (is_admin === true) {
     return next();
   }
   
   return res.status(401).json({
     status: 401,
-    error: 'You do not have permissions to access this route'
+    error: 'You do not have permissions to acces this route'
   });
 };
 
 export const isAdminDummy = (req, res, next) => {
   const { email } = req.authData.payload;
   const findUser = users.find(user => user.email === email);
-  if(findUser.isAdmin) {
+  if(findUser.is_admin) {
     return next();
   }
   return res.status(401).json({
@@ -79,7 +59,19 @@ export const isAdminDummy = (req, res, next) => {
   });
 };
 
+export const isOwnerDummy = (req, res, next) => {
+  const { email } = req.authData.payload;
+  const { id } = req.params;
+  const value = Number(id);
+  const foundUser = users.find(user => user.email === email);
+  const foundCar = cars.find(car => car.id === value);
+  if (foundUser.id !== foundCar.owner) {
+    return res.status(401).json({
+      status: 401,
+      error: 'You can not edit this ad'
+    });
+  }
+  return next();
 
-
-
+}
 
