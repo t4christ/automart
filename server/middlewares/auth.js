@@ -12,10 +12,10 @@ export const createToken = (payload) => {
 export const verifyToken = (req, res, next) => {
   req.headers['authorization'] = `Bearer ${req.headers.authorization}`;
   let token = req.headers.authorization
-  // if (token && token.startsWith('Bearer ')) {
-  //   console.log("My lips dey break")
-  //   token = token.slice(7, token.length);
-  // }
+  if (token && token.startsWith('Bearer ')) {
+    console.log("My lips dey break")
+    token = token.slice(7, token.length);
+  }
 
   console.log('tokennitre', token);
   if (!token) {
