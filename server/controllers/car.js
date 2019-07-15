@@ -39,7 +39,7 @@ export class CarController {
       manufacturer,
       model,
       body_type,
-      image_url
+      img_url
     ];
    
     

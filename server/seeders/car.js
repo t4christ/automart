@@ -13,7 +13,7 @@ const variables = [
     [ownerOne, 'used', 'unsold', '40000000', 'toyota', 'Runner', 'car', 'https://res.cloudinary.com/texplode/image/upload/v1559912278/toyota-runner.jpg'],
 ];
 
-const sql = format('INSERT INTO cars (owner, state, status, price, manufacturer, model, bodytype, imageurl) VALUES %L returning id', variables);
+const sql = format('INSERT INTO cars (owner, state, status, price, manufacturer, model, bodytype, img_url) VALUES %L returning id', variables);
 
 /**
     * Function representing carAdSeeder

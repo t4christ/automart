@@ -65,7 +65,7 @@ import { fetchSingleCarAdQuery } from '../config/sql';
 export class Car {
     static async postAdchecker(req, res, next) {
         //console.log('req.file', req.file);
-        let { state, price, manufacturer, model, body_type, image_url } = req.body;
+        let { state, price, manufacturer, model, body_type, img_url } = req.body;
         
         const errors = [];
         if (!state) {
@@ -169,16 +169,16 @@ export class Car {
         //     errors.push(error);
         // }
 
-        if (!image_url) {
+        if (!img_url) {
             const error = {
                 message: 'You need to upload an image for this car'
             };
             errors.push(error);
         }
         
-        if(image_url) {
+        if(img_url) {
             let extension;
-            extension = image_url.split('.').pop();
+            extension = img_url.split('.').pop();
             extension = extension.replace(/'/g,'').trim();
             extension = extension.toLowerCase();
             const validImageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
@@ -219,7 +219,7 @@ export class Car {
         req.body.manufacturer = manufacturer.toLowerCase();
         req.body.model = model.toLowerCase();
         req.body.body_type = body_type.toLowerCase();
-        req.body.image_url = image_url;
+        req.body.img_url = img_url;
         next();
     }
 
