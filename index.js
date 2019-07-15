@@ -4,7 +4,7 @@ import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import path from 'path';
-import { defaultRouter, userRouter, carRouter, orderRouter, flagRouter } from './routes';
+import { defaultRouter, userRouter, carRouter, orderRouter, flagRouter } from './server/routes';
 
 // import { multerUploads } from './server/middlewares/multer'
 // import { cloudinaryConfig } from './server/config/cloudinary';
