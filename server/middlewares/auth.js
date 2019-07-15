@@ -10,20 +10,21 @@ export const createToken = (payload) => {
 };
 
 export const verifyToken = (req, res, next) => {
-  let token = req.headers.authorization;
-  if (token && token.startsWith('Bearer ')) {
-    // console.log("My lips dey break")
-    token = token.slice(7, token.length);
-  }
+  req.headers['authorization'] = `Bearer ${req.headers.authorization}`;
+  let token = req.headers.authorization
+  // if (token && token.startsWith('Bearer ')) {
+  //   console.log("My lips dey break")
+  //   token = token.slice(7, token.length);
+  // }
 
-  console.log('tokennitre', req.headers);
+  console.log('tokennitre', token);
   if (!token) {
     return res.status(403).json({
       status: 'Fail',
       mesage: 'No token supplied'
     });
   }
-  jwt.verify(token, process.env.SECRETKEY, (error, authData) => {
+  jwt.verify(token.split(" ")[1], process.env.SECRETKEY, (error, authData) => {
     if (error) {
       if (error.message.includes('signature')) {
         return res.status(403).json({
