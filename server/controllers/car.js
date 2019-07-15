@@ -140,6 +140,7 @@ static async fetchAllUserAds(req,res) {
       * @return {object} JSON object representing success
       * @memeberof CarController
       */
+
   static async deleteSingleCarAd(req, res) {
     const { foundCar } = req.body;
 
@@ -148,7 +149,7 @@ static async fetchAllUserAds(req,res) {
       if (rowCount !== 0) {
         return res.status(200).json({
           status: 200,
-          data: 'Car Ad successfully deleted'
+          data: 'Car Advert successfully deleted'
         });
       }
       
