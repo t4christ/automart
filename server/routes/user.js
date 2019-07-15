@@ -8,8 +8,8 @@ const { registerCheck, loginCheck } = User;
 
 export const userRouter = express.Router();
 
-userRouter.post('/auth/register', registerCheck, register);
-userRouter.post('/auth/login', loginCheck, login);
+userRouter.post('/auth/signup', registerCheck, register);
+userRouter.post('/auth/signin', loginCheck, login);
 userRouter.get('/admin/users', verifyToken, isAdmin, getAllUsers);
 userRouter.delete('/admin/delete', verifyToken, isAdmin, deleteUser);
 userRouter.patch('/admin/role', verifyToken, isAdmin, giveAdminRight);
