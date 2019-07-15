@@ -10,7 +10,11 @@ export const createToken = (payload) => {
 };
 
 export const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization;
+  let token = req.headers.authorization;
+  if (token && token.startsWith('Bearer ')) {
+    // console.log("My lips dey break")
+    token = token.slice(7, token.length);
+  }
 
   console.log('tokennitre', req.headers);
   if (!token) {
