@@ -138,7 +138,7 @@ static async fetchAllUserAds(req,res) {
       * @param {object} req - The request object
       * @param {object} res - The response object
       * @return {object} JSON object representing success
-      * @memeberof CarController
+      * @memeberof Car Controller
       */
 
   static async deleteSingleCarAd(req, res) {
