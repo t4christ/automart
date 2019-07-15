@@ -101,7 +101,7 @@ export class CarController {
   }
 
   /**
-  * Fetch All posted Adverts by a user
+  * Fetch All posted Adverts by an admin user
   * @static
   * @param {object} req - The request object
   * @param {object} res - The response object
