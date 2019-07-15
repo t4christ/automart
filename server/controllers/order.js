@@ -17,7 +17,7 @@ export class OrderController {
    * @memeberof OrderController
    */
    
-   //For dB, user should not be able to order a car he posted.
+   //For dB, user should not be able to order a car he/she posted.
 
     static async postOrder(req, res) {
         const { car_id, amount } = req.body;
