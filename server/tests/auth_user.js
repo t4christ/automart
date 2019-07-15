@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../..';
+import app from '../index';
 
 import { validRegisterFixture, inValidRegisterFixture, inValidLoginFixture } from './fixtures/user';
 // import { users } from '../datastore';
@@ -46,17 +46,7 @@ describe('Test for user route', () => {
                 });
         });
 
-        /** it('Should return 201 status code and create admin user', async () => {
-            const newLength = users.length + 1;
-            const res = await chai.request(app)
-            .post(url)
-            .send(validRegisterFixture[2])
-            res.should.have.status(201);
-            res.body.should.be.an('object');
-            expect(res.body.status).to.equal(201);
-            expect(res.body.data).to.be.a('object');
-            expect(users).to.have.length(newLength);
-        });*/
+ 
         it('should return status code 400 and send error message for undefined/empty email', (done) => {
             chai
                 .request(app)

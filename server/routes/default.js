@@ -7,5 +7,5 @@ defaultRouter.get('/api/v1', (req, res) => res.status(200).json({
 }));
 
 defaultRouter.all('*', (req, res) => res.status(404).json({
-  error: 'Sorry, page does not exist!'
+  error: 'Sorry, page not found!'
 }));

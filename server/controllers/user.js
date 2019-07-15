@@ -2,7 +2,6 @@
 import db from '../config';
 import { hashSync, compareSync } from 'bcrypt';
 import { createToken } from '../middlewares/auth';
-import { sendMail } from '../helpers/mail';
 import  Crypter  from '../helpers/crypt';
 const { encrypt, decrypt } = Crypter;
 import { createUser, queryUsersByEmail, fetchAllUsersQuery, deleteUserQuery, updateUserRoleQuery } from '../config/sql';
@@ -58,6 +57,37 @@ export class UserController {
      * @return {object} JSON object representing success
      * @memeberof UserController
   */
+  static async login(req, res) {
+    const { email } = req.body;
+    const params = [email];
+    try {
+      const { rows } = await db.query(queryUsersByEmail, params);
+      if (rows) {
+        if (rows[0]) {
+          const comparePassword = compareSync(req.body.password, rows[0].password);
+          if (comparePassword) {
+            const authUser = rows[0];
+            const token = createToken(authUser);
+            return res.status(200).json({
+              status: 200,
+              data: { token }
+            });
+          }
+          if (!comparePassword) {
+            return res.status(401).json({
+              status: 401,
+              error: 'Authentication failed'
+            });
+          }
+        }
+      }
+    } catch (error) {
+      res.status(500).json({
+        status: 500,
+        error: error.message
+      });
+    }
+  }
 
   /**
      * Get all users on the application(admin)

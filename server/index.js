@@ -4,8 +4,8 @@ import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import path from 'path';
-import { defaultRouter, userRouter, carRouter, orderRouter, flagRouter } from './server/routes';
-import { log } from './server/helpers/logger'
+import { defaultRouter, userRouter, carRouter, orderRouter, flagRouter } from './routes';
+
 // import { multerUploads } from './server/middlewares/multer'
 // import { cloudinaryConfig } from './server/config/cloudinary';
 
@@ -32,7 +32,7 @@ app.use('/', defaultRouter);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-    log(`Server is live on PORT ${port}`);
+    console.log(`Server is live on PORT ${port}`);
 });
 
 export default app;

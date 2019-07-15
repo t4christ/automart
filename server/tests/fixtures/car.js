@@ -1,109 +1,111 @@
 export const validCarFixtures = [
     {
         state: 'new',
-        price: '1000000',
-        manufacturer: 'Toyota',
-        model: 'Avalon',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/toyota-car-3000/'
+        //status: 'unsold',
+        price: '10000000',
+        manufacturer: 'Kia',
+        model: 'Dehydra',
+        body_type: 'car',
+        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     {
         state: 'used',
+        //status: 'unsold',
         price: '10000000',
-        manufacturer: 'Honda',
-        model: 'Accord',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/honda-car-3000/'
-    },
+        manufacturer: 'Toyota',
+        model: 'Avalon',
+        body_type: 'car',
+        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
+    }
 ];
 
 export const invalidCarFixtures = [
-    //invalid object with state 
+    //state 0
     {
-        price: '35000000',
-        manufacturer: 'Bmw',
-        model: 'Classic',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/bmw-car-39855/'
+        price: '30000000',
+        manufacturer: 'Toyota',
+        model: 'Avalon',
+        body_type: 'car',
+        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     {
         state: 'usedd',
-        price: '35000000',
-        manufacturer: 'Bmw',
-        model: 'Classic',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/bmw-car-39855/'
+        price: '30000000',
+        manufacturer: 'Toyota',
+        model: 'Avalon',
+        body_type: 'car',
+        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
-    //invalid object for price
+    //price
     {
         state: 'used',
         manufacturer: 'Toyota',
         model: 'Avalon',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/toyota-car-32255/'
+        body_type: 'car',
+        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     {
         state: 'usedd',
         price: '3000ert.',
         manufacturer: 'Toyota',
         model: 'Avalon',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/oyota-car-32255/'
+        body_type: 'car',
+        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
-    // invalid object for manufacturer
+    //manufacturer
     {
         state: 'used',
         price: '30000000',
-        model: 'nissan',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/nissan-car-10055/'
+        model: 'Avalon',
+        body_type: 'car',
+        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     {
         state: 'used',
         price: '30000000',
-        manufacturer: 'Toyota1',
-        model: 'nissan',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/nissan-car-10055/'
+        manufacturer: 'Toyota4',
+        model: 'Avalon',
+        body_type: 'car',
+        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
-    // invalid object for model
+    //model
     {
         state: 'new',
         price: '30000000',
-        manufacturer: 'Kia',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/kia-car-29355/'
+        manufacturer: 'Toyota',
+        body_type: 'car',
+        imageurl: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     {
         state: 'new',
         price: '30000000',
-        manufacturer: 'Kia',
-        model: 'refined.77',
-        bodytype: 'car',
-        imageurl: 'https://www.cloudinary.com/photo/kia-car-29355/'
+        manufacturer: 'Toyota',
+        model: 'Avalon.34',
+        body_type: 'car',
+        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpeg'
     },
-    //invalid object for bodytype
+    //bodytype
     {
         state: 'used',
         price: '30000000',
-        manufacturer: 'Landcruiser',
-        model: 'bold',
-        imageurl: 'https://www.cloudinary.com/photo/landcruiser-car-12455/'
+        manufacturer: 'Toyota',
+        model: 'Avalon',
+        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     {
         state: 'used',
         price: '30000000',
         manufacturer: 'Toyota',
         model: 'Avalon',
-        bodytype: 'c@ar',
-        imageurl: 'https://www.cloudinary.com/photo/landcruiser-car-12455/'
+        body_type: 'ca.r',
+        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
-    //invalid object for imageurl
+    //imageurl
     {
         state: 'used',
         price: '30000000',
-        manufacturer: 'Padro',
-        model: 'infinite',
-        bodytype: 'car'
+        manufacturer: 'Toyota',
+        model: 'Avalon',
+        body_type: 'car'
     }
 ];
