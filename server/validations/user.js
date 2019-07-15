@@ -1,5 +1,7 @@
 import validator from 'validatorjs';
-import { users }  from '../datastore';
+//import { users }  from '../datastore';
+import db from '../config';
+import { queryUsersByEmail } from '../config/sql';
 
 /**
  * Class representing user validations
@@ -13,13 +15,13 @@ import { users }  from '../datastore';
       * @param {function} next 
       * @returns {object} JSON representing the failure message
       */
-     static registerCheck(req, res, next) {
-         let { email, firstname, lastname, password, address } = req.body;
+     static async registerCheck(req, res, next) {
+         let { email, first_name, last_name, password, address } = req.body;
 
          const rules = {
             email: 'required|email|min:10|max:30',
-            firstname: 'required|min:2|max:20|alpha',
-            lastname: 'required|min:2|max:20|alpha',
+            first_name: 'required|min:2|max:20|alpha',
+            last_name: 'required|min:2|max:20|alpha',
             password: 'required|min:6|max:16',
             address: 'required'
          };
@@ -33,19 +35,26 @@ import { users }  from '../datastore';
              });
          }
          email = email.toLowerCase().trim();
-         const emailFound = users.find(user => user.email === email);
-         if (emailFound) {
+         try {
+           const { rows } = await db.query(queryUsersByEmail, [email]);
+           if (rows[0]) {
              return res.status(409).json({
-                 status: 409,
-                 error: 'Email in use already'
+               status: 409,
+               error: 'Email already exists!',
              });
+           }
+         } catch (error) {
+           return res.status(500).json({
+             status: 500,
+             error: error.message,
+           });
          }
-         req.body.eamil = email;
-         req.body.firstname = firstname.toLowerCase().trim();
-         req.body.lastname = lastname.toLowerCase().trim();
+         req.body.email = email;
+         req.body.first_name = first_name.toLowerCase().trim();
+         req.body.last_name = last_name.toLowerCase().trim();
          req.body.password = password.trim();
          req.body.address = address.trim();
-         return next();
+         next();
      }
 
   /**
@@ -55,7 +64,7 @@ import { users }  from '../datastore';
    * @param {function} next - Calls the next function/route handler
    * @returns {object} JSON representing the failure message.
    */
-  static loginCheck(req, res, next) {
+  static async loginCheck(req, res, next) {
     let { email, password } = req.body;
 
     const rules = {
@@ -72,23 +81,24 @@ import { users }  from '../datastore';
     }
 
     email = email.toLowerCase().trim();
-    const userFound = users.find(user => user.email === email);
-    if (!userFound) {
-      return res.status(401).json({
-        status: 401,
-        error: 'Authentication failed',
+    try {
+      const { rows } = await db.query(queryUsersByEmail, [email]);
+      if (!rows[0]) {
+        return res.status(401).json({
+          status: 401,
+          error: 'Authentication failed',
+        });
+      }
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: error.message,
       });
     }
 
     password = password.trim();
-    if (userFound && password !== userFound.password) {
-      return res.status(401).json({
-        status: 401,
-        error: 'Incorrect login details',
-      });
-    }
-    req.body.userFound = userFound;
+    req.body.email = email;
     req.body.password = password;
-    return next();
+    next();
   }
  };

@@ -1,24 +1,37 @@
+import 'dotenv/config';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import app from '../index';
+import pool from '../config/config'
+import { CarController } from '../controllers';
+// import { hashSync } from 'bcrypt';
+
+// const { postCarAd } = CarController;
 
 import { validCarFixtures, invalidCarFixtures } from './fixtures/car';
-import { cars } from '../datastore';
+// import { users, cars } from '../datastore';
+
 
 const { should, expect } = chai;
 should();
 chai.use(chaiHttp);
+chai.use(sinonChai);
+
 let userClaim;
 let adminToken;
 let ownerClaim;
+
+
 
 describe('Create token for user', () => {
     it('Should create token after successful login', async () => {
         const res = await chai.request(app)
             .post('/api/v1/auth/login')
             .send({
-                email: 'reymon@gmail.com',
-                password: 'bradpass'
+                email: 'usertwo@gmail.com',
+                password: 'password'
             })
                 expect(res).to.have.status(200);
                 userClaim = res.body.data.token;
@@ -28,22 +41,24 @@ describe('Create token for user', () => {
         const res = await chai.request(app)
             .post('/api/v1/auth/login')
             .send({
-                email: 'adminone@gmail.com',
-                password: 'adminmarkpass'
+                email: 'admin@gmail.com',
+                password: 'password'
             })
                 expect(res).to.have.status(200);
                 adminToken = res.body.data.token;
+                //console.log('adminToken', adminToken);
     });
 
-    it('Should create token for admin after successful login', async () => {
+    it('Should create token for owner after successful login', async () => {
         const res = await chai.request(app)
             .post('/api/v1/auth/login')
             .send({
-                email: 'karim@gmail.com',
-                password: 'mochapass'
+                email: 'processenv@gmail.com',
+                password: 'jamespass'
             })
                 expect(res).to.have.status(200);
                 ownerClaim = res.body.data.token;
+           
     });
 });
 
@@ -51,7 +66,7 @@ describe('Create token for user', () => {
 describe('Test for Cars routes', () => {
     describe('Test for postAd route', () => {
         it('should return 201 status and post ad', async () => {
-            const newLength = cars.length + 1;
+            // const newLength = cars.length + 1;
             const res = await chai.request(app)
             .post('/api/v1/car')
             .set('authorization', userClaim)
@@ -60,10 +75,10 @@ describe('Test for Cars routes', () => {
             res.body.should.be.an('object');
             expect(res.body.status).to.equal(201);
             expect(res.body.data).to.be.a('object');
-            expect(cars).to.have.length(newLength);
+            // expect(cars).to.have.length(newLength);
         });
         it('should return 201 status and post ad', async () => {
-            const newLength = cars.length + 1;
+            // const newLength = cars.length + 1;
             const res = await chai.request(app)
             .post('/api/v1/car')
             .set('authorization', userClaim)
@@ -72,9 +87,21 @@ describe('Test for Cars routes', () => {
             res.body.should.be.an('object');
             expect(res.body.status).to.equal(201);
             expect(res.body.data).to.be.a('object');
-            expect(cars).to.have.length(newLength);
+            // expect(cars).to.have.length(newLength);
         });
-        //test for state
+
+        //stub
+        it('It should return internal server error for a connection error to the database { Status 500 } ', async () => {
+            const stub = sinon.stub(pool, 'query').callsFake(() => Promise.reject());
+            const res = await chai.request(app)
+              .post('/api/v1/car')
+              .set('authorization', userClaim)
+              .send(validCarFixtures[0])
+               expect(res.status).to.equal(500);
+               stub.restore();
+          });
+
+        //state
         it('should return 400 status code and not post ad', async () => {
             const res = await chai.request(app)
             .post('/api/v1/car')
@@ -96,7 +123,7 @@ describe('Test for Cars routes', () => {
              expect(res.body.status).to.equal(400);
              expect(res.body.errors).to.be.a('object');
         });
-        //test for price
+        //price
         it('should return 400 status code and not post ad', async () => {
             const res = await chai.request(app)
             .post('/api/v1/car')
@@ -117,7 +144,7 @@ describe('Test for Cars routes', () => {
              expect(res.body.status).to.equal(400);
              expect(res.body.errors).to.be.a('object');
         });
-        // test for manufacturer
+        //manufacturer
         it('should return 400 status code and not post ad', async () => {
             const res = await chai.request(app)
             .post('/api/v1/car')
@@ -138,8 +165,7 @@ describe('Test for Cars routes', () => {
              expect(res.body.status).to.equal(400);
              expect(res.body.errors).to.be.a('object');
         });
-
-        // test for model
+        //model
         it('should return 400 status code and not post ad', async () => {
             const res = await chai.request(app)
             .post('/api/v1/car')
@@ -160,7 +186,7 @@ describe('Test for Cars routes', () => {
              expect(res.body.status).to.equal(400);
              expect(res.body.errors).to.be.a('object');
         });
-        //test for bodytype
+        //bodytype
         it('should return 400 status code and not post ad', async () => {
             const res = await chai.request(app)
             .post('/api/v1/car')
@@ -181,7 +207,7 @@ describe('Test for Cars routes', () => {
              expect(res.body.status).to.equal(400);
              expect(res.body.errors).to.be.a('object');
         });
-        //test for imageurl
+        //imageurl
         it('should return 400 status code and not post ad', async () => {
             const res = await chai.request(app)
             .post('/api/v1/car')
@@ -192,79 +218,131 @@ describe('Test for Cars routes', () => {
              expect(res.body.status).to.equal(400);
              expect(res.body.errors).to.be.a('object');
         });
+    });
 
-        describe('Test for PATCH endpoint', () => {
-            it('Should allow owner update car ad status and return status code of 200', async () => {
-                const res = await chai.request(app)
-                .patch('/api/v1/car/2/status')
-                .set('authorization', userClaim)
-                res.should.have.status(200);
-                res.body.should.be.an('object');
-                expect(res.body.status).to.equal(200);
-                expect(res.body.data).to.be.an('object');
-            });
-            it('Should not allow owner update car ad status and return status code of 422', async () => {
-                const res = await chai.request(app)
-                .patch('/api/v1/car/2/status')
-                .set('authorization', userClaim)
-                res.should.have.status(422);
-                res.body.should.be.an('object');
-                expect(res.body.status).to.equal(422);
-                expect(res.body.error).to.be.equal('This ad has already been marked as sold');
-            });
-            it('Should allow owner update car ad price and return status code of 200', async () => {
-                const res = await chai.request(app)
-                .patch('/api/v1/car/2/price')
-                .set('authorization', userClaim)
-                .send({price: '3000000'})
-                res.should.have.status(200);
-                res.body.should.be.an('object');
-                expect(res.body.status).to.equal(200);
-                expect(res.body.data).to.be.an('object');
-            });
-            it('Should not allow owner update car ad price and return status code of 400', async () => {
-                const res = await chai.request(app)
-                .patch('/api/v1/car/2/price')
-                .set('authorization', userClaim)
-                .send({price: ''})
-                res.should.have.status(400);
-                res.body.should.be.an('object');
-                expect(res.body.status).to.equal(400);
-                expect(res.body.error).to.be.equal('Enter a price or retain the old price');
-            });
+    describe('Test for getAdRoutes', () => {
+        it('Should return 200 status code and serve a single Ad', async () => {
+            const res = await chai.request(app)
+            .get('/api/v1/car/1')
+            res.should.have.status(200);
+            res.body.should.be.an('object');
+            expect(res.body.status).to.equal(200);
+            expect(res.body.data).to.be.a('object');
         });
-        describe('Test for getAdRoutes', () => {
-            it('Should return 200 status code and serve a single Ad', async () => {
-                const res = await chai.request(app)
-                .get('/api/v1/car/1')
-                res.should.have.status(200);
-                res.body.should.be.an('object');
-                expect(res.body.status).to.equal(200);
-                expect(res.body.data).to.be.a('object');
-            });
-    
-            it('Should return 404 status code and not serve a single Ad', async () => {
-                const res = await chai.request(app)
-                .get('/api/v1/car/qui')
-                res.should.have.status(404);
-                res.body.should.be.an('object');
-                expect(res.body.status).to.equal(404);
-                expect(res.body.error).to.equal('Car not found');
-            });
-    
-            describe('Test for DELETE endpoint', () => {
-                it('Should allow admin delete a resource and return status code of 200', async () => {
-                    const res = await chai.request(app)
-                    .delete('/api/v1/car/3')
-                    .set('authorization', adminToken)
-                    res.should.have.status(200);
-                    res.body.should.be.an('object');
-                    expect(res.body.status).to.equal(200);
-                    expect(res.body.data).to.be.equal('Car Ad successfully deleted');
-                });
+
+        it('Should return 404 status code and not serve a single Ad', async () => {
+            const res = await chai.request(app)
+            .get('/api/v1/car/300')
+            res.should.have.status(404);
+            res.body.should.be.an('object');
+            expect(res.body.status).to.equal(404);
+            expect(res.body.error).to.equal('Car not found');
+        });
+
+        it('Should fetch all car ads in the db and return 200 status code', async () => {
+            const res = await chai.request(app)
+            .get('/api/v1/car')
+            .set('authorization', adminToken)
+            res.should.have.status(200);
+            res.body.should.be.an('object');
+            expect(res.body.status).to.equal(200);
+            expect(res.body.data).to.be.an('array');
+        });
+
+        it('Should return 401 status code not serve all Ads for non-admin', async () => {
+            const res = await chai.request(app)
+            .get('/api/v1/car')
+            .set('authorization', userClaim)
+            res.should.have.status(401);
+            res.body.should.be.an('object');
+            expect(res.body.status).to.equal(401);
+            expect(res.body.error).to.be.equal('You do not have permissions to acces this route');
+        });
+    })
+
+    describe('Test for PATCH endpoint', () => {
+        it('Should allow owner update car ad status and return status code of 200', async () => {
+            const res = await chai.request(app)
+            .patch('/api/v1/car/6/status')
+            .set('authorization', userClaim)
+            res.should.have.status(200);
+            res.body.should.be.an('object');
+            expect(res.body.status).to.equal(200);
+            expect(res.body.data).to.be.an('object');
+        });
+        // it('Should not allow owner update car ad status and return status code of 422', async () => {
+        //     const res = await chai.request(app)
+        //     .patch('/api/v1/car/2/status')
+        //     .set('authorization', ownerClaim)
+        //     res.should.have.status(422);
+        //     res.body.should.be.an('object');
+        //     expect(res.body.status).to.equal(422);
+        //     expect(res.body.error).to.be.equal('This ad has already been marked as sold');
+        // });
+        it('Should allow owner update car ad price and return status code of 200', async () => {
+            const res = await chai.request(app)
+            .patch('/api/v1/car/6/price')
+            .set('authorization', userClaim)
+            .send({price: '3000000'})
+            res.should.have.status(200);
+            res.body.should.be.an('object');
+            expect(res.body.status).to.equal(200);
+            expect(res.body.data).to.be.an('object');
+        });
+        it('Should not allow owner update car ad price and return status code of 400', async () => {
+            const res = await chai.request(app)
+            .patch('/api/v1/car/2/price')
+            .set('authorization', ownerClaim)
+            .send({price: ''})
+            res.should.have.status(400);
+            res.body.should.be.an('object');
+            expect(res.body.status).to.equal(400);
+            expect(res.body.error).to.be.equal('Enter a price or retain the old price');
+        });
+    });
+
+    describe('Test for DELETE endpoint', () => {
+        it('Should allow admin delete a resource and return status code of 200', async () => {
+            const res = await chai.request(app)
+            .delete('/api/v1/car/3')
+            .set('authorization', adminToken)
+            res.should.have.status(200);
+            res.body.should.be.an('object');
+            expect(res.body.status).to.equal(200);
+            expect(res.body.data).to.be.equal('Car Ad successfully deleted');
+        });
     });
 });
-});
-});
+
+// Before hooks
+// describe('Cars', () => {
+//     before(async () => {
+//         const response = await chai
+//             .request(app)
+//             .post('/api/v1/auth/login')
+//             .send({
+//                 email: '',
+//                 password: 'pass'
+//             });
+//         adToken = response.body.data.token;
 
 
+//         await chai
+//             .request(app)
+//             .post
+//     });
+// });
+
+
+// describe('Create token for user', () => {
+//     it('Should create token after successful login', async () => {
+//         const res = await chai.request(app)
+//             .post('/api/v1/auth/login')
+//             .send({
+//                 email: 'bbb',
+//                 password: 'pass'
+//             })
+//         expect(res).to.have.status(200);
+//         ownerClaim = res.body.data.token;
+//     });
+// });

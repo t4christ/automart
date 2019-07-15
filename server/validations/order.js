@@ -1,4 +1,4 @@
-
+import { orders } from '../datastore';
 
 /**
  * Class representing user validations
@@ -15,18 +15,18 @@ export class Order{
     */
 
     static postOrderChecker(req, res, next) {
-        let { priceOffered } = req.body;
+        let { amount } = req.body;
         const errors = [];
 
-        priceOffered = priceOffered.trim();
-        if(!priceOffered) {
+        amount = amount.trim();
+        if(!amount) {
             const error = {
                 message: 'please specify an amount'
             };
             errors.push(error);
         }
 
-        if(!/^\d+$/.test(priceOffered)) {
+        if(!/^\d+$/.test(amount)) {
             const error = {
                 message: 'price offered should be numbers only'
             };
@@ -42,7 +42,7 @@ export class Order{
             });
         }
 
-        req.body.priceOffered = priceOffered;
+        req.body.amount = amount;
         next();
     }
 }

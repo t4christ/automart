@@ -1,4 +1,7 @@
-import { cars} from '../datastore';
+// import { cars, users } from '../datastore';
+import db from '../config';
+import { postAdQuery, fetchAllCarAdsQuery, allUserAdsQuery, deleteSingleAdQuery, updateCarAdStatus, updateCarAdPrice, statusQuery, statusPriceQuery, statusManufacturerQuery, bodyTypeQuery, statusStateQuery, queryUsersByEmail } from '../config/sql';
+//import { imageUpload } from '../middlewares/multer';
 
 
 /**
@@ -15,34 +18,48 @@ export class CarController {
    * @memeberof CarController
    */
   
-  static postCarAd(req, res) {
-    const { state, status = 'unsold', price, manufacturer, model, bodytype, imageurl } = req.body;
+  static async postCarAd(req, res) {
+    try {
+    // if (req.file) {
+    //   console.log('I AM HERE', req.file);
+    //   const fileURL = await imageUpload(req);
+    //   imageurl = fileURL;
+    // }
 
-    const id = cars[cars.length - 1].id + 1;
-    const createdon = new Date();
+    const { state, price, manufacturer, model, body_type, image_url } = req.body;
+   
     
-    const owner = req.authData.payload.id
+    
+    const owner = req.authData.payload.id;
 
-    const newCarAd = {
-      id,
+    const params = [
       owner,
-      createdon,
+      state,
+      price,
       manufacturer,
       model,
-      price,
-      state,
-      status,
-      bodytype,
-      imageurl
-    };
-    cars.push(newCarAd);
-    return res.status(201).json({
-      status: 201,
-      data: { newCarAd }
-    });
+      body_type,
+      image_url
+    ];
+   
+    
+      const { rows } = await db.query(postAdQuery, params);
+      const newAd = rows[0];
+      //console.log('newAD', newAd);
+      return res.status(201).json({
+        status: 201,
+        data: { newAd }
+      });
+    }
+    catch(error) {
+      return res.status(500).json({
+        status: 500,
+        error: error.message
+      });
+    }
   }
 
-   /**
+  /**
    * Find car Ad
    * @static
    * @param {object} req - The request object
@@ -50,6 +67,7 @@ export class CarController {
    * @return {object} JSON object representing success
    * @memeberof CarController
    */
+
 
   static getSingleCarAd(req, res) {
     const { foundCar } = req.body;
@@ -59,7 +77,87 @@ export class CarController {
     });
   }
 
- 
+  /**
+  * Fetch All posted Ads (Admin)
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @return {object} JSON object representing success
+  * @memeberof CarController
+  */
+  static async fetchAllCarAds(req, res) {
+    try {
+      const { rows } = await db.query(fetchAllCarAdsQuery);
+      return res.status(200).json({
+        status: 200,
+        data: rows
+      });
+    } catch(error) {
+      return res.status(500).json({
+        status: 500,
+        error: error.message
+      });
+    }
+  }
+
+  /**
+  * Fetch All posted Adverts by a user
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @return {object} JSON object representing success
+  * @memeberof CarController
+  */
+static async fetchAllUserAds(req,res) {
+  const { id } = req.authData.payload;
+
+  try {
+    const { rows, rowCount } = await db.query(allUserAdsQuery, [id]);
+    if (rowCount === 0) {
+      return res.status(404).json({
+        status: 404,
+        error: 'You are yet to post any car Ads'
+      });
+    }
+    return res.status(200).json({
+      status: 200,
+      data: rows
+    });
+  } catch(error){
+    return res.status(500).json({
+      status: 500,
+      error: error.message
+    });
+  }
+}
+
+  /**
+      * Delete Single posted Ad (Admin)
+      * @static
+      * @param {object} req - The request object
+      * @param {object} res - The response object
+      * @return {object} JSON object representing success
+      * @memeberof CarController
+      */
+  static async deleteSingleCarAd(req, res) {
+    const { foundCar } = req.body;
+
+    try {
+      const { rowCount } = await db.query(deleteSingleAdQuery, [foundCar.id]);
+      if (rowCount !== 0) {
+        return res.status(200).json({
+          status: 200,
+          data: 'Car Ad successfully deleted'
+        });
+      }
+      
+    } catch(error) {
+      return res.status(500).json({
+        status: 500,
+        error: error.message
+      });
+    }
+  }
 
   /**
    * Edit status of posted Ad
@@ -70,41 +168,38 @@ export class CarController {
    * @memeberof CarController
    */
 
-  static editAdStatus(req, res) {
+  static async editAdStatus(req, res) {
     const { foundCar } = req.body;
-    if (foundCar.status === 'sold') {
-      return res.status(422).json({
-        status: 422,
-        error: 'This ad has already been marked as sold'
-      });
+    const { id } = req.authData.payload;
+
+    
+    if (foundCar.status === 'unsold') {
+      try {
+        const { rows, rowCount } = await db.query(updateCarAdStatus, ['sold', foundCar.id, id]);
+        if(rowCount !== 0) {
+          return res.status(200).json({
+            status: 200,
+            data: rows[0]
+          });
+        } return res.status(404).json({
+          status: 404,
+          error: 'This ad does not exist'
+        });
+        
+      } catch (error) {
+        return res.status(500).json({
+          status: 500,
+          error: error.message
+        });
+      }
     }
-    foundCar.status = 'sold'
-    return res.status(200).json({
-      status: 200,
-      data: foundCar
+    return res.status(422).json({
+      status: 422,
+      error: 'This ad has already been marked as sold'
     });
-  } 
+  }
 
-/**
-      * Delete Single posted Ad (Admin)
-      * @static
-      * @param {object} req - The request object
-      * @param {object} res - The response object
-      * @return {object} JSON object representing success
-      * @memeberof CarController
-      */
-     static deleteSingleCarAd(req, res) {
-      const { foundCar } = req.body;
-      cars.splice(foundCar, 1);
-      return res.status(200).json({
-        status: 200,
-        data: 'Car Ad successfully deleted'
-      });
-    }
-
-
-
-/**
+  /**
   * Edit price of posted Ad
   * @static
   * @param {object} req - The request object
@@ -113,8 +208,10 @@ export class CarController {
   * @memeberof CarController
   */
 
- static editAdPrice(req, res) {
+  static async editAdPrice(req, res) {
     let { price, foundCar } = req.body
+    const { id } = req.authData.payload;
+    //console.log("Price",req.body)
     if (!price) {
       return res.status(400).json({
         status: 400,
@@ -130,33 +227,28 @@ export class CarController {
         });
       }
     }
-    foundCar.price = price;
-    return res.status(200).json({
-      status: 200,
-      data: foundCar
-    });
+    try {
+      const { rows, rowCount } = await db.query(updateCarAdPrice, [price, foundCar.id, id]);
+      if(rowCount !== 0) {
+        return res.status(200).json({
+          status: 200,
+          data: rows[0]
+        });
+      }
+      return res.status(404).json({
+        status: 404,
+        error: 'This ad does not exist'
+      });
+      
+    } catch(error) {
+      return res.status(500).json({
+        status: 500,
+        error: error.message
+      });
+    }
   }
-  
-
 
   /**
-  * Fetch All posted Ads (Admin)
-  * @static
-  * @param {object} req - The request object
-  * @param {object} res - The response object
-  * @return {object} JSON object representing success
-  * @memeberof CarController
-  */
-
- static fetchAllCarAds(req, res) {
-  return res.status(200).json({
-    status: 200,
-    data: cars
-  });
-}
-
-
- /**
    * Filter by unsold/available and price range of cars
    * @static
    * @param {object} req - The request object
@@ -164,14 +256,15 @@ export class CarController {
    * @return {object} JSON object representing success
    * @memeberof CarController
    */
-  
-  static filterSearch(req, res, next) {
-    if (req.query.status) {
-      let { status, minprice, maxprice } = req.query;
+  static async statusSearch(req, res, next) {
+    console.log('search1', req.query);
+    if(req.query.status &&  !req.query.state && !req.query.manufacturer && !req.query.bodytype) {
+      console.log('search1a', req.query);
+      let { status } = req.query;
       status = status.trim().toLowerCase();
-      if (status && !minprice && !maxprice) {
-        const statusResult = cars.filter(car => car.status === status)
-        if (statusResult.length === 0) {
+      try {
+        const { rows, rowCount } = await db.query(statusQuery, ['unsold']);
+        if(rowCount === 0) {
           return res.status(404).json({
             status: 404,
             error: 'Sorry, this does not exist'
@@ -179,31 +272,208 @@ export class CarController {
         }
         return res.status(200).json({
           status: 200,
-          data: statusResult
+          data: rows
+        });
+      } catch (error) {
+        return res.status(500).json({
+          status: 500,
+          error: error.message
         });
       }
-      if (status && minprice && maxprice) {
-        minprice = Number(minprice.trim());
-        maxprice = Number(maxprice.trim());
-        const elasticResult = cars.filter(car => car.status === status && Number(car.price) >= minprice && Number(car.price) <= maxprice);
-        if (elasticResult.length === 0) {
+    }
+    next(); 
+  }
+
+  /**
+   * Filter by unsold/available and price range of cars
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @return {object} JSON object representing success
+   * @memeberof CarController
+   */
+  static async statusPriceSearch(req, res, next) {
+    console.log('search2', req.query);
+    if(req.query.status && req.query.minprice && req.query.maxprice){
+      console.log('search2a', req.query);
+      console.log('haa', req.query);
+      console.log('here')
+      let { status, minprice, maxprice } = req.query;
+      console.log('here');
+      status = status.trim().toLowerCase();
+      try {
+        const { rows , rowCount } = await db.query(statusPriceQuery, ['unsold', minprice, maxprice]);
+        console.log(rowCount);
+        if(rowCount === 0) {
           return res.status(404).json({
             status: 404,
-            error: 'There is no result for your search now'
+            error: 'There is no search for your result now'
           });
         }
         return res.status(200).json({
           status: 200,
-          data: elasticResult
+          data: rows
+        });
+      } catch(error) {
+        return res.status(500).json({
+          status: 500,
+          error: error.message
         });
       }
+    }
+    next();
+  }
 
-     return res.status(404).json({
-       status: 404,
-       error: 'There seems to be an issue with your search'
-     });
+  /**
+   * Filter cars by status and state(new)
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @return {object} JSON object representing success
+   * @memeberof CarController
+   */
+
+  static async statusNewStateSearch(req, res, next) {
+    console.log('search3', req.query);
+    if (req.query.status && req.query.state==='new') {
+      console.log('search3a', req.query);
+      let { status, state } = req.query;
+      status = status.trim().toLowerCase();
+      state = state.trim().toLowerCase();
+      try {
+        const { rows, rowCount } = await db.query(statusStateQuery, ['unsold', 'new']);
+        console.log('i tire', rows);
+        if (rowCount === 0) {
+          return res.status(404).json({
+            status: 404,
+            error: 'No search for this result yet'
+          });
+        }
+        return res.status(200).json({
+          status: 200,
+          data: rows
+        });
+      }catch(error){
+        return res.status(500).json({
+          status: 500,
+          error: error.message
+        });
+      }
+    }
+    next();
+  }
+  //GET /car?status=available&state=new
+
+  /**
+   * Filter cars by status=unsold and status(used)
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @return {object} JSON object representing success
+   * @memeberof CarController
+   */
+
+  static async statusUsedStateSearch(req, res, next) {
+    console.log('searchUsed', req.query);
+    if (req.query.status && req.query.state==='used') {
+      console.log('search3aUsed', req.query);
+      let { status, state } = req.query;
+      status = status.trim().toLowerCase();
+      state = state.trim().toLowerCase();
+      try {
+        const { rows, rowCount } = await db.query(statusStateQuery, ['unsold', 'used']);
+        if (rowCount === 0) {
+          return res.status(404).json({
+            status: 404,
+            error: 'No search for this result yet'
+          });
+        }
+        return res.status(200).json({
+          status: 200,
+          data: rows
+        });
+      }catch(error){
+        return res.status(500).json({
+          status: 500,
+          error: error.message
+        });
+      }
+    }
+    next();
+  }
+    /**
+   * Filter cars by status&manufacturer
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @return {object} JSON object representing success
+   * @memeberof CarController
+   */
+
+  static async statusManufacturerSearch(req, res, next) {
+    console.log('search4', req.query);
+    if (req.query.status && req.query.manufacturer) {
+      console.log('search4a', req.query);
+      let { status, manufacturer } = req.query;
+      status = status.trim().toLowerCase();
+      manufacturer = manufacturer.trim().toLowerCase();
+      try {
+        const { rows, rowCount } = await db.query(statusManufacturerQuery, ['unsold', manufacturer]);
+        if (rowCount === 0) {
+          return res.status(404).json({
+            status: 404,
+            error: 'No search for this result yet1'
+          });
+        }
+        return res.status(200).json({
+          status: 200,
+          data: rows
+        });
+      }catch(error){
+        return res.status(500).json({
+          status: 500,
+          error: error.message
+        });
+      }
+    }
+    next();
+  }
+
+    /**
+   * Filter by unsold/available and price range of cars
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @return {object} JSON object representing success
+   * @memeberof CarController
+   */
+
+  static async bodyTypeSearch(req, res, next) {
+    console.log('search5', req.query);
+    if (req.query.bodytype) {
+      console.log('search5a', req.query);
+      let { bodytype } = req.query;
+      bodytype = bodytype.trim().toLowerCase();
+      
+      try {
+        const { rows, rowCount } = await db.query(bodyTypeQuery, [bodytype]);
+        if (rowCount === 0) {
+          return res.status(404).json({
+            status: 404,
+            error: 'No search for this result yet2'
+          });
+        }
+        return res.status(200).json({
+          status: 200,
+          data: rows
+        });
+      }catch(error){
+        return res.status(500).json({
+          status: 500,
+          error: error.message
+        });
+      }
     }
     next();
   }
 };
-

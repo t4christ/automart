@@ -1,9 +1,9 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../';
+import app from '../index';
 
 import { validRegisterFixture, inValidRegisterFixture, inValidLoginFixture } from './fixtures/user';
-import { users } from '../datastore';
+// import { users } from '../datastore';
 
 const { should, expect } = chai;
 should();
@@ -13,10 +13,12 @@ chai.use(chaiHttp);
 const url = '/api/v1/auth/register';
 const loginUrl = '/api/v1/auth/login';
 
+
+
 describe('Test for user route', () => {
     describe('Test for register API', () => {
         it('Should return 201 status code and create new user', (done) => {
-            const newLength = users.length + 1;
+            // const newLength = users.length + 1;
             chai.request(app)
                 .post(url)
                 .send(validRegisterFixture[0])
@@ -25,12 +27,12 @@ describe('Test for user route', () => {
                     res.body.should.be.an('object');
                     expect(res.body.status).to.equal(201);
                     expect(res.body.data).to.be.a('object');
-                    expect(users).to.have.length(newLength);
+                    // expect(users).to.have.length(newLength);
                     done();
                 });
         });
         it('Should return 201 status code and create another user', (done) => {
-            const newLength = users.length + 1;
+            // const newLength = users.length + 1;
             chai.request(app)
                 .post(url)
                 .send(validRegisterFixture[1])
@@ -39,22 +41,12 @@ describe('Test for user route', () => {
                     res.body.should.be.an('object');
                     expect(res.body.status).to.equal(201);
                     expect(res.body.data).to.be.a('object');
-                    expect(users).to.have.length(newLength);
+                    // expect(users).to.have.length(newLength);
                     done();
                 });
         });
 
-        /** it('Should return 201 status code and create admin user', async () => {
-            const newLength = users.length + 1;
-            const res = await chai.request(app)
-            .post(url)
-            .send(validRegisterFixture[2])
-            res.should.have.status(201);
-            res.body.should.be.an('object');
-            expect(res.body.status).to.equal(201);
-            expect(res.body.data).to.be.a('object');
-            expect(users).to.have.length(newLength);
-        });*/
+ 
         it('should return status code 400 and send error message for undefined/empty email', (done) => {
             chai
                 .request(app)
@@ -111,7 +103,7 @@ describe('Test for user route', () => {
                     res.body.should.have.property('status');
                     res.body.should.have.property('error');
                     expect(res.body.status).to.equal(409);
-                    expect(res.body.error).to.equal('Email in use already');
+                    expect(res.body.error).to.equal('Email already exists!');
                     done();
                 });
         });
@@ -241,7 +233,7 @@ describe('Test for user route', () => {
 
         describe('Test for login API', () => {
             it('Should return 200 status code and log user in when correctdetails are supplied', (done) => {
-                const newLength = users.length;
+                // const newLength = users.length;
                 chai.request(app)
                     .post(loginUrl)
                     .send(validRegisterFixture[0])
@@ -250,7 +242,7 @@ describe('Test for user route', () => {
                         res.body.should.be.an('object');
                         expect(res.body.status).to.equal(200);
                         expect(res.body.data).to.be.a('object');
-                        expect(users).to.have.length(newLength);
+                        // expect(users).to.have.length(newLength);
                         done();
                     });
             });
@@ -306,7 +298,7 @@ describe('Test for user route', () => {
                         res.body.should.have.property('status');
                         res.body.should.have.property('error');
                         expect(res.body.status).to.equal(401);
-                        expect(res.body.error).to.equal('Incorrect login details');
+                        expect(res.body.error).to.equal('Authentication failed');
                         done();
                     });
             });

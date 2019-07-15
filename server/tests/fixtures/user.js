@@ -1,25 +1,25 @@
 // Register
 export const validRegisterFixture = [
     {
-        email: 'reymond@gmail.com',
-        firstname: 'Reymond',
-        lastname: 'Brad',
-        password: 'bradpass',
-        address: '14 belvi street,Lagos'
+        email: 'iknagod@gmail.com',
+        first_name: 'Ikenna',
+        last_name: 'James',
+        password: 'jamespass',
+        address: '14 ketu street,Lagos'
     },
     {
-        email: 'karimo@gmail.com',
-        firstname: 'karim',
-        lastname: 'mocha',
-        password: 'mochapass',
-        address: '15, opebi street, GRA, Abeokuta'
+        email: 'processenv@gmail.com',
+        first_name: 'Process',
+        last_name: 'Talktrue',
+        password: 'jamespass',
+        address: '15, onikolobo street, GRA, Abeokuta'
     },
     {
       email: 'admin@gmail.com',
-      firstname: 'malboro',
-      lastname: 'borned',
+      first_name: 'Process',
+      last_name: 'Talktrue',
       password: 'adminpass',
-      address: '25, raymond street, Lagos',
+      address: '15, onikolobo street, GRA, Abeokuta',
       isAdmin: true
     }
 ];
@@ -27,103 +27,103 @@ export const validRegisterFixture = [
 export const inValidRegisterFixture = [
     // undefined email 0
     {
-        firstname: 'Reymond',
-        lastname: 'Brad',
-        password: 'bradpass',
-        address: 'bradpass'
+        first_name: 'John',
+        last_name: 'James',
+        password: 'jamespass',
+        address: 'jamespass'
     },
     
     // spaced email 1
     {
-      email: 'reymond @gmail.com',
-      firstname: 'Reymond',
-      lastname: 'Brad',
-      password: 'bradpass',
-      address: '14 belvi street,Lagos'
+      email: 'jja mes@gmail.com',
+      first_name: 'John',
+      last_name: 'James',
+      password: 'jamespass',
+      address: '12, joriondo street, Lagos'
     },
 
     // invalid email format 2
     {
-        email: 'reymondgmail.com',
-        firstname: 'Reymond',
-        lastname: 'Brad',
-        password: 'bradpass',
-        address: '14 belvi street,Lagos'
+      email: 'jjamesgmail.com',
+      first_name: 'John',
+      last_name: 'James',
+      password: 'jamespass',
+      address: '23, rondle avenue, Lagos'
     },
     // Existing email 3
     {
-      email: 'reymond@gmail.com',
-      firstname: 'Reymond',
-      lastname: 'Brad',
-      password: 'bradpass',
-      address: '14 belvi street,Lagos'
+      email: 'iknagod@gmail.com',
+      first_name: 'John',
+      last_name: 'James',
+      password: 'jamespass',
+      address: '23, randle street, Lagos'
     },
 
     // Firstname
     // undefined firstname 4
     {
-        email: 'reymond@gmail.com',
-        lastname: 'Brad',
-        password: 'bradpass',
-        address: '14 belvi street,Lagos'
+        email: 'babnla@gmail.com',
+        last_name: 'James',
+        password: 'jamespass',
+        address: '14 ketu street,Lagos'
     },
     // spaced firstname 5
     {
-        email: 'reymond@gmail.com',
-        firstname: 'Rey mond',
-        lastname: 'Reymond',
-        password: 'bradpass',
-        address: '14 belvi street,Lagos'
+        email: 'donbabj@gmail.com',
+        first_name: 'Ike nna',
+        last_name: 'James',
+        password: 'jamespass',
+        address: '14 ketu street,Lagos'
     },
     // short firstname length 6
     {
-        email: 'reymond@gmail.com',
-        firstname: 'R',
-        lastname: 'Reymond',
-        password: 'bradpass',
-        address: '14 belvi street,Lagos'
+        email: 'iknababa@gmail.com',
+        first_name: 'I',
+        last_name: 'James',
+        password: 'jamespass',
+        address: '14 ketu street,Lagos'
     },
 
     // lastname
     // undefined lastname 7
     {
-        email: 'reymond@gmail.com',
-        firstname: 'Reymond',
-        password: 'bradpass',
-        address: '14 belvi street,Lagos'
+        email: 'jekyll@gmail.com',
+        first_name: 'Ikenna',
+        password: 'jamespass',
+        address: '14 ketu street,Lagos'
     },
     // lastname space 8
     {
-        email: 'reymond@gmail.com',
-        firstname: 'Reymond',
-        lastname: 'Bra d',
-        password: 'bradpass',
-        address: '14 belvi street,Lagos'
+        email: 'jacintha@gmail.com',
+        first_name: 'Ikenna',
+        last_name: 'Jam es',
+        password: 'jamespass',
+        address: '14 ketu street,Lagos'
     },
     
     // Password
     // undefined password 9
     {
-        email: 'reymond@gmail.com',
-        firstname: 'Reymond',
-        lastname: 'Brad',
-        address: '14 belvi street,Lagos'
+        email: 'iknagod@gmail.com',
+        first_name: 'Ikenna',
+        lastname: 'James',
+        address: '14 ketu street,Lagos'
     },
     // short password 10
     {
-        email: 'reymond@gmail.com',
-        firstname: 'Reymond',
-        lastname: 'Brad',
-        password: 'bra',
-        address: '14 belvi street,Lagos'
+        email: 'seller@gmail.com',
+        first_name: 'Ikenna',
+        last_name: 'James',
+        password: 'js',
+        address: '14 ketu street,Lagos'
     },
     // address
     // undefined address 11
     {
-        email: 'reymond@gmail.com',
-        firstname: 'Reymond',
-        lastname: 'Brad',
-        password: 'bradpass'
+        email: 'iknagod@gmail.com',
+        first_name: 'Ikenna',
+        last_name: 'James',
+        password: 'Kembewoi'
     }
 ];
 
@@ -131,23 +131,23 @@ export const inValidRegisterFixture = [
 export const inValidLoginFixture = [
     // no email/empty email 0
     {
-      password: 'passwordless'
+      password: 'jamiejesss'
     },
   
     // email not found in the db 1
     {
-      email: 'automart@gmail.com',
-      password: 'automartpass'
+      email: 'jossyoloye@gmail.com',
+      password: 'jossyboy'
     },
   
     // no password/empty password 2
     {
-      email: 'reymon@gmail.com'
+      email: 'iknagod@gmail.com'
     },
     // password not in db 3
     {
-      email: 'reymon@gmail.com',
-      password: 'none'
+      email: 'iknagod@gmail.com',
+      password: 'lasiselenu'
     }
   ];
   
