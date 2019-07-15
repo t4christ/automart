@@ -23,7 +23,7 @@ export class CarController {
     // if (req.file) {
     //   console.log('I AM HERE', req.file);
     //   const fileURL = await imageUpload(req);
-    //   imageurl = fileURL;
+    //   img_url = fileURL;
     // }
 
     const { state, price, manufacturer, model, body_type, image_url } = req.body;

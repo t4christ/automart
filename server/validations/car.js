@@ -158,11 +158,11 @@ export class Car {
         //     const file = await bufferToString(req.file).content;
         //     const result = await uploader.upload(file);
         //     const image = result.url;
-        //     imageurl = image;
+        //     img_url = image;
         // }
 
         // errors.push(e)
-        // if (!imageurl || !req.file) {
+        // if (!img_url || !req.file) {
         //     const error = {
         //         message: 'Please upload an image for this vehicle'
         //     };
@@ -190,10 +190,10 @@ export class Car {
                 }
             }
 
-        // if(imageurl){
-        //     imageurl = imageurl.trim().replace(/\s\s+/g, '');
-        //     imageurl = imageurl.split('.');
-        //     const validImage = imageurl[imageurl.length - 1];
+        // if(img_url){
+        //     img_url = img_url.trim().replace(/\s\s+/g, '');
+        //     img_url = img_url.split('.');
+        //     const validImage = img_url[img_url.length - 1];
         //     if(validImage.toLowerCase() !== 'jpg' && validImage.toLowerCase() !== 'jpeg' && validImage.toLowerCase() !== 'png' && validImage.toLowerCase() !== 'gif') {
         //         const error = {
         //             message: 'This image is not a valid image'
@@ -233,13 +233,13 @@ export class Car {
     //  static async uploadCarImage(req, res, next) {
     //      console.log('req.file', req.file);
     //      //if(!req.file === 'undefined') {console.log('problem')};
-    //      let imageurl;
+    //      let img_url;
     //      if (req.file) {
     //          try{
     //             const file = await bufferToString(req.file).content;
     //             const result = await uploader.upload(file);
     //             let image = result.url;
-    //             req.body.imageurl = image;
+    //             req.body.img_url = image;
     //             next();
     //          } catch(error) {
     //              return res.status(400).json({
