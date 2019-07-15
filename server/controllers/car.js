@@ -293,17 +293,15 @@ static async fetchAllUserAds(req,res) {
    * @memeberof CarController
    */
   static async statusPriceSearch(req, res, next) {
-    console.log('search2', req.query);
+
     if(req.query.status && req.query.minprice && req.query.maxprice){
-      console.log('search2a', req.query);
-      console.log('haa', req.query);
-      console.log('here')
+ 
       let { status, minprice, maxprice } = req.query;
-      console.log('here');
+
       status = status.trim().toLowerCase();
       try {
         const { rows , rowCount } = await db.query(statusPriceQuery, ['unsold', minprice, maxprice]);
-        console.log(rowCount);
+
         if(rowCount === 0) {
           return res.status(404).json({
             status: 404,
@@ -334,15 +332,15 @@ static async fetchAllUserAds(req,res) {
    */
 
   static async statusNewStateSearch(req, res, next) {
-    console.log('search3', req.query);
+
     if (req.query.status && req.query.state==='new') {
-      console.log('search3a', req.query);
+
       let { status, state } = req.query;
       status = status.trim().toLowerCase();
       state = state.trim().toLowerCase();
       try {
         const { rows, rowCount } = await db.query(statusStateQuery, ['unsold', 'new']);
-        console.log('i tire', rows);
+
         if (rowCount === 0) {
           return res.status(404).json({
             status: 404,
@@ -362,7 +360,7 @@ static async fetchAllUserAds(req,res) {
     }
     next();
   }
-  //GET /car?status=available&state=new
+
 
   /**
    * Filter cars by status=unsold and status(used)
