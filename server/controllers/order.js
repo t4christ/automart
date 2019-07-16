@@ -140,16 +140,22 @@ export class OrderController {
                 if(result.rowCount !== 0){
                     const { id, car_id, status } = result.rows[0];
                     new_price_offered = price;
-                    const updatedData = {
-                        id,
-                        car_id,
-                        status,
-                        old_price_offered,
-                        new_price_offered
-                    };
+                    // const updatedData = {
+                    //     id,
+                    //     car_id,
+                    //     status,
+                    //     old_price_offered,
+                    //     new_price_offered
+                    // };
                     return res.status(200).json({
                         status: 200,
-                        data: updatedData
+                        data: {
+                            id,
+                            car_id,
+                            status,
+                            old_price_offered,
+                            new_price_offered
+                        }
                     });
                 }
             }
