@@ -94,7 +94,7 @@ export class Car {
             errors.push(error);
         }
         if (price) {
-            price = price.trim();
+            // price = price.trim();
             if (!/^\d+$/.test(price)) {
                 const error = {
                     message: 'Price should be numbers only'
