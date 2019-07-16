@@ -66,7 +66,8 @@ export class Car {
     static async postAdchecker(req, res, next) {
         //console.log('req.file', req.file);
         let { state, price, manufacturer, model, body_type, img_url } = req.body;
-        
+        console.log('body request', req.body);
+        console.log("type of price",typeof price)
         const errors = [];
         if (!state) {
             const error = {
