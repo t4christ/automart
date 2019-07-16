@@ -182,7 +182,7 @@ export class Car {
             extension = img_url.split('.').pop();
             extension = extension.replace(/'/g,'').trim();
             extension = extension.toLowerCase();
-            const validImageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+            const validImageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'com'];
                 if(!validImageExtensions.includes(extension)) {
                     const error = {
                         message: 'This image is not a valid image'
