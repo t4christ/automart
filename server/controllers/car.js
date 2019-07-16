@@ -46,10 +46,21 @@ export class CarController {
       const { rows } = await db.query(postAdQuery, params);
       console.log("Rows",rows)
       const newAd = rows[0];
-      console.log('newAD response', newAd);
+      //console.log('newAD', newAd);
       return res.status(201).json({
         status: 201,
-        data: { newAd }
+        data: { 
+        model,
+        id,
+        owner,
+        state,
+        status,
+        price,
+        manufacturer,
+        body_type,
+        img_url,
+        created_on
+        }
       });
     }
     catch(error) {
