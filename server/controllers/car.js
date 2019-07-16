@@ -30,10 +30,10 @@ export class CarController {
    
     
     
-    const owner = req.authData.payload.id;
+    
 
     const params = [
-      owner,
+       req.authData.payload.id,
       req.body
     ];
    
