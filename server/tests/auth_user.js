@@ -10,8 +10,8 @@ should();
 
 chai.use(chaiHttp);
 
-const url = '/auth/signup';
-const loginUrl = '/auth/signin';
+const url = '/api/v1/auth/signup';
+const loginUrl = '/api/v1/auth/signin';
 
 
 

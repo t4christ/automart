@@ -24,10 +24,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use(express.static(path.join(__dirname, 'frontend')));
 
-app.use('/', userRouter);
-app.use('/', carRouter);
-app.use('/', orderRouter);
-app.use('/', flagRouter);
+app.use('/api/v1', userRouter);
+app.use('/api/v1', carRouter);
+app.use('/api/v1', orderRouter);
+app.use('/api/v1', flagRouter);
 app.use('/', defaultRouter);
 
 const port = process.env.PORT || 5000;

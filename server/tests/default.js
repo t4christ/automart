@@ -15,7 +15,7 @@ describe('Test for index route', () => {
   describe('GET request to home page', () => {
     it('It should return the page', (done) => {
       chai.request(app)
-        .get('/')
+        .get('/api/v1')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');

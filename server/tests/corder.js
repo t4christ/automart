@@ -15,7 +15,7 @@ let userClaim;
 describe('Create token for user', () => {
     it('Should create token after successful login', async () => {
         const res = await chai.request(app)
-            .post('/auth/signin')
+            .post('/api/v1/auth/signin')
             .send({
                 email: 'usertwo@gmail.com',
                 password: 'password'
@@ -32,7 +32,7 @@ describe('Test for Orders routes', () => {
         it('Should return 201 status code and post order', async () => {
             // const newLength = orders.length + 1;
             const res = await chai.request(app)
-            .post('/order')
+            .post('/api/v1/order')
             .set('authorization', userClaim)
             .send(validOrderFixture[0])
              res.should.have.status(201);
@@ -43,7 +43,7 @@ describe('Test for Orders routes', () => {
         });
         it('Should return 400 status code and not post order', async () => {
             const res = await chai.request(app)
-            .post('/order')
+            .post('/api/v1/order')
             .set('authorization', userClaim)
             .send(invalidOrderFixture[0])
              res.should.have.status(400);
@@ -53,7 +53,7 @@ describe('Test for Orders routes', () => {
         });
         it('Should return 400 status code and not post order', async () => {
             const res = await chai.request(app)
-            .post('/order')
+            .post('/api/v1/order')
             .set('authorization', userClaim)
             .send(invalidOrderFixture[1])
              res.should.have.status(400);

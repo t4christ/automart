@@ -2,7 +2,7 @@ import express from 'express';
 
 export const defaultRouter = express.Router();
 
-defaultRouter.get('/', (req, res) => res.status(200).json({
+defaultRouter.get('/api/v1', (req, res) => res.status(200).json({
   data: 'Welcome to Automart automobile'
 }));
 
