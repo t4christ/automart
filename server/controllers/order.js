@@ -138,11 +138,11 @@ export class OrderController {
             if(rowCount !== 0 && rows[0].status === 'pending') {
                 const result = await db.query(updateOrderQuery, [price, value, id]);
                 if(result.rowCount !== 0){
-                    const { id, carid, status } = result.rows[0];
+                    const { id, car_id, status } = result.rows[0];
                     new_price_offered = price;
                     const updatedData = {
                         id,
-                        carid,
+                        car_id,
                         status,
                         old_price_offered,
                         new_price_offered

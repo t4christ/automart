@@ -4,12 +4,12 @@ const ordersTable = `DROP TABLE IF EXISTS orders CASCADE;
     CREATE TABLE orders (
         id SERIAL PRIMARY KEY NOT NULL,
         buyerid INTEGER NOT NULL,
-        carid INTEGER NOT NULL,
+        car_id INTEGER NOT NULL,
         amount CHARACTER VARYING(50) NOT NULL,
         status CHARACTER VARYING(30) NOT NULL DEFAULT ('pending'),
         createdOn TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
         FOREIGN KEY (buyerid) references users (id) ON DELETE CASCADE,
-        FOREIGN KEY (carid) references cars (id) ON DELETE CASCADE
+        FOREIGN KEY (car_id) references cars (id) ON DELETE CASCADE
     )`
 
     /**
