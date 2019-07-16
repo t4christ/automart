@@ -33,12 +33,12 @@ export class OrderController {
                     error: 'Invalid car id'
                 });
             }
-            if(rows[0].owner === buyer) {
-                return res.status(401).json({
-                    status: 401,
-                    error: 'You can not order for a car you posted'
-                });
-            }
+            // if(rows[0].owner === buyer) {
+            //     return res.status(401).json({
+            //         status: 401,
+            //         error: 'You can not order for a car you posted'
+            //     });
+            // }
             const result = await db.query(postOrderQuery, [buyer, value, amount]);
             if(result.rowCount !== 0) {
                 let price = rows[0].price;
