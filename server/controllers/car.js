@@ -49,7 +49,16 @@ export class CarController {
       //console.log('newAD', newAd);
       return res.status(201).json({
         status: 201,
-        data: { newAd }
+        data: { id,
+        owner,
+        state,
+        status,
+        price,
+        manufacturer,
+        model,
+        body_type,
+        img_url,
+        created_on:registeredon }
       });
     }
     catch(error) {
