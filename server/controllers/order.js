@@ -109,7 +109,7 @@ export class OrderController {
     static async editOrderPrice(req, res) {
         const { price } = req.body;
 
-        if (!price.trim() === '' || !/^\d+$/.test(price)) {
+        if (!price || !/^\d+$/.test(price)) {
             return res.status(400).json({
                 status: 400,
                 error: 'new price offered should be numbers only'
