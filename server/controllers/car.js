@@ -33,8 +33,13 @@ export class CarController {
     
 
     const params = [
-       req.authData.payload.id,
-      req.body
+      req.authData.payload.id,
+      req.body.state,
+      req.body.price,
+      req.body.manufacturer,
+      req.body.model,
+      req.body.body_type,
+      req.body.img_url
     ];
    
     
