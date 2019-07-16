@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { users, cars } from '../datastore';
+import { request } from 'https';
 
 dotenv.config();
 
@@ -10,26 +11,23 @@ export const createToken = (payload) => {
 };
 
 export const verifyToken = (req, res, next) => {
-  req.headers['authorization'] = `Bearer ${req.headers.authorization}`;
-  let token = req.headers.authorization
-  if (token && token.startsWith('Bearer ')) {
-    console.log("My lips dey break")
-    token = token.slice(7, token.length);
-  }
+  // req.headers['authorization'] = `Bearer ${req.headers.authorization}`;
+  let token = req.headers.token ||  request.headers.authorization;
+
 
   console.log('tokennitre', token);
   if (!token) {
     return res.status(403).json({
-      status: 'Fail',
-      mesage: 'No token supplied'
+      status: 403,
+      error: 'No token supplied'
     });
   }
   jwt.verify(token, process.env.SECRETKEY, (error, authData) => {
     if (error) {
       if (error.message.includes('signature')) {
         return res.status(403).json({
-          status: 'Fail',
-          message: 'Invalid token supplied'
+          status: 403,
+          error: 'Invalid token supplied'
         });
       }
       return res.status(403).json({
