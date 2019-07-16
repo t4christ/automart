@@ -11,8 +11,8 @@ export const createToken = (payload) => {
 };
 
 export const verifyToken = (req, res, next) => {
-  // req.headers['authorization'] = `Bearer ${req.headers.authorization}`;
-  let token = req.headers.authorization || req.headers.token;
+  req.headers['authorization'] = `Bearer ${req.headers.authorization}`;
+  let token = req.headers.authorization;
 
 
   console.log('tokennitre', token);
@@ -22,7 +22,7 @@ export const verifyToken = (req, res, next) => {
       error: 'No token supplied'
     });
   }
-  jwt.verify(token, process.env.SECRETKEY, (error, authData) => {
+  jwt.verify(token.split("Bearer ")[1], process.env.SECRETKEY, (error, authData) => {
     if (error) {
       if (error.message.includes('signature')) {
         return res.status(403).json({
