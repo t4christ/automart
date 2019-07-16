@@ -58,7 +58,7 @@ export class CarController {
         model,
         body_type,
         img_url,
-        created_on:registeredon }
+        registeredon }
       });
     }
     catch(error) {
