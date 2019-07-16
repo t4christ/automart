@@ -42,18 +42,23 @@ export class OrderController {
             const result = await db.query(postOrderQuery, [buyer, value, amount]);
             if(result.rowCount !== 0) {
                 let price = rows[0].price;
-                const { id, buyerid, carid, amount, status, createdon } = result.rows[0];
-                const data = {
-                    id,
-                    carid,
-                    createdon,
-                    status,
-                    price,
-                    amount
-                }
+                const { id, buyerid, car_id, amount, status, createdon } = result.rows[0];
+                // const data = {
+                //     id,
+                //     car_id,
+                //     createdon,
+                //     status,
+                //     price,
+                //     amount
+                // }
                 return res.status(201).json({
                     status: 201,
-                    data: data
+                    data: { id,
+                        car_id,
+                        createdon,
+                        status,
+                        price,
+                        amount}
                 });
             }
         } catch(error) {
