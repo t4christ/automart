@@ -26,20 +26,14 @@ export class CarController {
     //   img_url = fileURL;
     // }
 
-    const { state, price, manufacturer, model, body_type, img_url } = req.body;
+    // const { state, price, manufacturer, model, body_type, img_url } = req.body;
    
     
     
     const owner = req.authData.payload.id;
 
     const params = [
-      owner,
-      state,
-      price,
-      manufacturer,
-      model,
-      body_type,
-      img_url
+      req.body
     ];
    
     
