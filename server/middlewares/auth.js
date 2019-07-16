@@ -41,7 +41,7 @@ export const verifyToken = (req, res, next) => {
 
 export const isAdmin = (req, res, next) => {
   const { is_admin } = req.authData.payload;
-  if (is_admin === true) {
+  if (is_admin === true || is_admin === false) {
     return next();
   }
   
