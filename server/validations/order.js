@@ -18,7 +18,7 @@ export class Order{
         let { amount } = req.body;
         const errors = [];
 
-        amount = amount.trim();
+        // amount = amount.trim();
         if(!amount) {
             const error = {
                 message: 'please specify an amount'

@@ -234,7 +234,7 @@ static async fetchAllUserAds(req,res) {
       });
     }
     if (price) {
-      price = price.trim();
+      //price = price.trim();
       if (!/^\d+$/.test(price)) {
         return res.status(400).json({
           status: 400,
