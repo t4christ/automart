@@ -15,7 +15,7 @@ let userClaim;
 describe('Create token for user', () => {
     it('Should create token after successful login', async () => {
         const res = await chai.request(app)
-            .post('/auth/login')
+            .post('/auth/signin')
             .send({
                 email: 'usertwo@gmail.com',
                 password: 'password'

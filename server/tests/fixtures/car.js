@@ -6,7 +6,7 @@ export const validCarFixtures = [
         manufacturer: 'Kia',
         model: 'Dehydra',
         body_type: 'car',
-        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
+        img_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     {
         state: 'used',
@@ -15,7 +15,7 @@ export const validCarFixtures = [
         manufacturer: 'Toyota',
         model: 'Avalon',
         body_type: 'car',
-        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
+        img_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     }
 ];
 
@@ -26,7 +26,7 @@ export const invalidCarFixtures = [
         manufacturer: 'Toyota',
         model: 'Avalon',
         body_type: 'car',
-        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
+        img_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     {
         state: 'usedd',
@@ -34,7 +34,7 @@ export const invalidCarFixtures = [
         manufacturer: 'Toyota',
         model: 'Avalon',
         body_type: 'car',
-        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
+        img_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     //price
     {
@@ -42,7 +42,7 @@ export const invalidCarFixtures = [
         manufacturer: 'Toyota',
         model: 'Avalon',
         body_type: 'car',
-        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
+        img_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     {
         state: 'usedd',
@@ -50,7 +50,7 @@ export const invalidCarFixtures = [
         manufacturer: 'Toyota',
         model: 'Avalon',
         body_type: 'car',
-        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
+        img_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     //manufacturer
     {
@@ -58,7 +58,7 @@ export const invalidCarFixtures = [
         price: '30000000',
         model: 'Avalon',
         body_type: 'car',
-        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
+        img_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     {
         state: 'used',
@@ -66,7 +66,7 @@ export const invalidCarFixtures = [
         manufacturer: 'Toyota4',
         model: 'Avalon',
         body_type: 'car',
-        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
+        img_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     //model
     {
@@ -82,7 +82,7 @@ export const invalidCarFixtures = [
         manufacturer: 'Toyota',
         model: 'Avalon.34',
         body_type: 'car',
-        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpeg'
+        img_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpeg'
     },
     //bodytype
     {
@@ -90,7 +90,7 @@ export const invalidCarFixtures = [
         price: '30000000',
         manufacturer: 'Toyota',
         model: 'Avalon',
-        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
+        img_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     {
         state: 'used',
@@ -98,7 +98,7 @@ export const invalidCarFixtures = [
         manufacturer: 'Toyota',
         model: 'Avalon',
         body_type: 'ca.r',
-        image_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
+        img_url: 'https://res.cloudinary.com/oseun/image/upload/v1559912544/toyota-tundra.jpg'
     },
     //imageurl
     {

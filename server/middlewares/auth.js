@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { users, cars } from '../datastore';
-import { request } from 'https';
+// import { request } from 'https';
 
 dotenv.config();
 
@@ -14,15 +14,13 @@ export const verifyToken = (req, res, next) => {
   // req.headers['authorization'] = `Bearer ${req.headers.authorization}`;
   let token = req.headers.authorization;
 
-
-  console.log('tokennitre', token);
   if (!token) {
     return res.status(403).json({
       status: 403,
       error: 'No token supplied'
     });
   }
-  jwt.verify(token.split("Bearer ")[1], process.env.SECRETKEY, (error, authData) => {
+  jwt.verify(token, process.env.SECRETKEY, (error, authData) => {
     if (error) {
       if (error.message.includes('signature')) {
         return res.status(403).json({
@@ -41,7 +39,7 @@ export const verifyToken = (req, res, next) => {
 
 export const isAdmin = (req, res, next) => {
   const { is_admin } = req.authData.payload;
-  if (is_admin === true || is_admin === false) {
+  if (is_admin === true) {
     return next();
   }
   
