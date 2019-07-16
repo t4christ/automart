@@ -107,7 +107,8 @@ export class OrderController {
    */
 
     static async editOrderPrice(req, res) {
-        const { price } = req.body;
+        let { price } = req.body;
+        let new_price_offered;
 
         if (!price || !/^\d+$/.test(price)) {
             return res.status(400).json({
@@ -116,7 +117,7 @@ export class OrderController {
             });
         }
 
-        let oldPriceOffered;
+        let old_price_offered;
         const value  = Number(req.params.orderId);
         const { id } = req.authData.payload;
         try {
@@ -127,7 +128,7 @@ export class OrderController {
                     error: 'Order does not exist'
                 });
             }
-            const price = rows[0].amount;
+            old_price_offered = rows[0].amount;
             if(rowCount !== 0 && rows[0].status !== 'pending') {
                 return res.status(422).json({
                     status: 422,
@@ -138,13 +139,13 @@ export class OrderController {
                 const result = await db.query(updateOrderQuery, [price, value, id]);
                 if(result.rowCount !== 0){
                     const { id, carid, status } = result.rows[0];
-                    oldPriceOffered = price;
+                    new_price_offered = price;
                     const updatedData = {
                         id,
                         carid,
                         status,
-                        oldPriceOffered,
-                        price
+                        old_price_offered,
+                        new_price_offered
                     };
                     return res.status(200).json({
                         status: 200,
