@@ -12,7 +12,7 @@ export const createToken = (payload) => {
 
 export const verifyToken = (req, res, next) => {
   // req.headers['authorization'] = `Bearer ${req.headers.authorization}`;
-  let token = req.headers.token ||  req.headers.authorization;
+  let token = req.headers.authorization || req.headers.token;
 
 
   console.log('tokennitre', token);
