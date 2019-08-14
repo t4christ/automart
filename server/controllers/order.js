@@ -1,4 +1,3 @@
-//import { users, cars, orders } from '../datastore';
 import db from '../config/config';
 import { postOrderQuery, findOrderQuery, updateOrderQuery, allUserOrdersQuery, fetchSingleCarAdQuery } from '../config/sql';
 
